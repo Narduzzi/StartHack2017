@@ -24,23 +24,17 @@ public class GameManager : MonoBehaviour {
 		}
 		notesArray = new List<List<Note>> ();
 		notesArray = StepReader.GenerateListByChannel(notesArray,keys,notes);
-		Debug.Log ("Notes array size : " + notesArray.Count);
 		time = 0.0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		time += Time.deltaTime;
-		valid = true;
 		for (int i = 0; i < keys.Count; i++){
 			if (Input.GetKeyDown (keys [i])) {
-				Debug.Log ("Pressed key at index (" + i + ") : " + keys [i]);
-				Debug.Log (notesArray [i].Count);
 				float perfectTime = notesArray[i][0].time;
 				if (time <= perfectTime + toleranceAfterMs && time >= perfectTime - toleranceBeforeMs) {
 					valid = true;
-				} else {
-					valid = false;
 				}
 			}
 
@@ -48,12 +42,11 @@ public class GameManager : MonoBehaviour {
 				valid = false;
 			}
 		}
-
-		Debug.Log (valid);
 		if (!valid) {
 			audioManager.Failed (instrument);
 		} else {
 			audioManager.Success (instrument);
+			Debug.Log ("Success! " + instrument);
 		}
 
 		notesArray = ReSyncList (notesArray,time);

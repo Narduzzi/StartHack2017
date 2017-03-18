@@ -21,11 +21,13 @@ public class AudioManager : MonoBehaviour {
 		
 
 	public void Failed(string instrument){
-		failedInstruments [getNumberInstrument (instrument)] = true;
-		error_source.Play ();
-		AudioSource source = GetAudioSource(instrument);
-		source.volume = 0;
-		Debug.Log ("Set volume of " + instrument + " to 0");
+		if (failedInstruments [getNumberInstrument (instrument)] == false) {
+			failedInstruments [getNumberInstrument (instrument)] = true;
+			error_source.Play ();
+			AudioSource source = GetAudioSource (instrument);
+			source.volume = 0;
+			Debug.Log ("Set volume of " + instrument + " to 0");
+		}
 	}
 	public void Success(string instrument){
 		failedInstruments [getNumberInstrument (instrument)] = false;
