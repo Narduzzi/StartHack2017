@@ -179,6 +179,7 @@ public class KeyboardManager : MonoBehaviour {
         LogitechGSDK.LogiLedShutdown();
     }
 
+    /*
     private void OnGUI()
     {
         Event e = Event.current;
@@ -186,6 +187,14 @@ public class KeyboardManager : MonoBehaviour {
         {
             Debug.Log(e.keyCode);
         }
+    }
+    */
+
+    private IEnumerator WaitAndSwitch(float time, int zone, Color c)
+    {
+        yield return new WaitForSeconds(time);
+
+        ZoneColor(zone, c);
     }
 
     void Update () {
@@ -202,6 +211,7 @@ public class KeyboardManager : MonoBehaviour {
             if (IsKeyDownFromZone(i))
             {
                 ZoneColor(i, Color.black);
+                StartCoroutine(WaitAndSwitch(1.0f, i, colors[i]));
             }
         }
     }
