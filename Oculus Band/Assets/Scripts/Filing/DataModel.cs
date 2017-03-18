@@ -11,7 +11,7 @@ namespace XMLDataModel
     [XmlRoot("Song")]
     public class Song
     {
-        private static string path = Application.persistentDataPath;
+        private static string path = Application.dataPath;
 
         [XmlAttribute("name")]
         public string name;
