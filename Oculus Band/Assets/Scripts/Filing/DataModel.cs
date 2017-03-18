@@ -23,7 +23,7 @@ namespace XMLDataModel
         [XmlArrayItem("Note")]
         public List<Note> notes = new List<Note>();
 
-
+        public Song() { }
 
         public Song(string name, List<Note> notes)
         {
@@ -56,6 +56,8 @@ namespace XMLDataModel
 
     public class Note
     {
+        public Note() { }
+
         public Note(float time, uint type) : this(time, type, false) { }
 
         public Note(float time, uint type, bool bonus)
