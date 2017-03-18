@@ -30,7 +30,7 @@ public class StepRecorder : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Space) || source.time > source.clip.length) {
 			song = new Song (name, notes);
-			song.Save ();
+			song.Save (name);
 			Debug.Log ("Song saved : " + name);
 		}
 	}

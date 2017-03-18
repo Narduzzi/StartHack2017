@@ -55,8 +55,9 @@ namespace XMLDataModel
             Save(fpath);
         }
 
-        public Song Load(string fpath)
+        public static Song Load(string name)
         {
+			string fpath = "Assets\\Resources\\Tracks\\" + name;
             var serializer = new XmlSerializer(typeof(Song));
             var stream = new FileStream(fpath, FileMode.Open);
             var container = serializer.Deserialize(stream) as Song;

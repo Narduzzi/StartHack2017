@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StepFaller : MonoBehaviour {
-	public float speed = 20.0f;
+	public float speed = 2.0f;
 	private float createdTime = 0f;
 	public float MaxTime = 30.0f;
 	// Use this for initialization
@@ -13,7 +13,7 @@ public class StepFaller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float newY = this.transform.localPosition.y - 1.0f * ((1.0f * speed) / 100.0f);
+		float newY = this.transform.localPosition.y - speed * Time.deltaTime;
 		Vector3 pos = this.transform.localPosition;
 		pos.y = newY;
 		this.transform.localPosition = pos;

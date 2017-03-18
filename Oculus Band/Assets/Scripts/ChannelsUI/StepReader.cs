@@ -14,7 +14,7 @@ public class StepReader : MonoBehaviour {
 	public float offset = 4.0f;
 	// Use this for initialization
 	void Start () {
-		Song song = Song.Load ("Assets\\Resources\\Tracks\\"+name);
+		Song song = Song.Load (name);
 		notes = song.notes;
 		time = offset;
 

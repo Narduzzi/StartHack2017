@@ -22,7 +22,7 @@ public class StepDisplayer : MonoBehaviour {
 		}
 	}
 
-	void PushNote(int offset){
+	public void PushNote(float offset){
 		GameObject newstep = Instantiate(Resources.Load("Prefabs/Step")) as GameObject; 
 
 		newstep.transform.parent = this.transform;
