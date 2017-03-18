@@ -190,8 +190,7 @@ public class LogitechGSDK  {
         ARROW_DOWN = 0x150,
         ARROW_RIGHT = 0x14D,
         NUM_ZERO = 0x52,
-        NUM_PERIOD = 0x53,
-
+        NUM_PERIOD = 0x53
     };
 
     [DllImport("LogitechLedEnginesWrapper ", CallingConvention = CallingConvention.Cdecl)]

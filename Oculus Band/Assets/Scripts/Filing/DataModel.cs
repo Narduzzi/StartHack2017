@@ -37,7 +37,7 @@ namespace XMLDataModel
         {
             string fpath = System.IO.Path.Combine(path, name + ".xml");
             var serializer = new XmlSerializer(typeof(Song));
-            var stream = new FileStream(path, FileMode.Create);
+            var stream = new FileStream(fpath, FileMode.Create);
             serializer.Serialize(stream, this);
 
             stream.Close();
@@ -46,7 +46,7 @@ namespace XMLDataModel
         public Song Load(string fpath)
         {
             var serializer = new XmlSerializer(typeof(Song));
-            var stream = new FileStream(path, FileMode.Open);
+            var stream = new FileStream(fpath, FileMode.Open);
             var container = serializer.Deserialize(stream) as Song;
             stream.Close();
 
