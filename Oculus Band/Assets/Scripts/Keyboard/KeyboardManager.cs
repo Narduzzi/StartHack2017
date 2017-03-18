@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeyboardManager : MonoBehaviour {
 
-    public enum KeyCode
+    public enum ScanCode
     {
         ESC = 1,
         ONE = 2,
@@ -73,83 +73,84 @@ public class KeyboardManager : MonoBehaviour {
     }
 
     
-    private static KeyCode[][] zones = new KeyCode[5][] {
-        new KeyCode[] {
-            KeyCode.TILDE,
-            KeyCode.TAB,
-            KeyCode.CAPS_LOCK,
-            KeyCode.LEFT_SHIFT,
-            KeyCode.LEFT_CONTROL,
-            KeyCode.ONE,
-            KeyCode.Q,
-            KeyCode.A,
-            KeyCode.BACKSLASH,
-            KeyCode.LEFT_WINDOWS,
-            KeyCode.TWO,
-            KeyCode.W,
-            KeyCode.S,
-            KeyCode.Y
+    private static ScanCode[][] zones = new ScanCode[5][] {
+        new ScanCode[] {
+            ScanCode.TILDE,
+            ScanCode.TAB,
+            ScanCode.CAPS_LOCK,
+            ScanCode.LEFT_SHIFT,
+            ScanCode.LEFT_CONTROL,
+            ScanCode.ONE,
+            ScanCode.Q,
+            ScanCode.A,
+            ScanCode.BACKSLASH,
+            ScanCode.LEFT_WINDOWS,
+            ScanCode.TWO,
+            ScanCode.W,
+            ScanCode.S,
+            ScanCode.Y
         },
-        new KeyCode[] {
-            KeyCode.THREE,
-            KeyCode.E,
-            KeyCode.D,
-            KeyCode.X,
-            KeyCode.C,
-            KeyCode.LEFT_ALT,
-            KeyCode.FOUR,
-            KeyCode.R,
-            KeyCode.F,
-            KeyCode.V,
-            KeyCode.FIVE,
-            KeyCode.T,
-            KeyCode.G
+        new ScanCode[] {
+            ScanCode.THREE,
+            ScanCode.E,
+            ScanCode.D,
+            ScanCode.X,
+            ScanCode.C,
+            ScanCode.LEFT_ALT,
+            ScanCode.FOUR,
+            ScanCode.R,
+            ScanCode.F,
+            ScanCode.V,
+            ScanCode.FIVE,
+            ScanCode.T,
+            ScanCode.G
         },
-        new KeyCode[] {
-            KeyCode.SIX,
-            KeyCode.Z,
-            KeyCode.H,
-            KeyCode.B,
-            KeyCode.SEVEN,
-            KeyCode.U,
-            KeyCode.J,
-            KeyCode.N,
-            KeyCode.EIGHT,
-            KeyCode.I,
-            KeyCode.K,
-            KeyCode.M
+        new ScanCode[] {
+            ScanCode.SIX,
+            ScanCode.Z,
+            ScanCode.H,
+            ScanCode.B,
+            ScanCode.SEVEN,
+            ScanCode.U,
+            ScanCode.J,
+            ScanCode.N,
+            ScanCode.EIGHT,
+            ScanCode.I,
+            ScanCode.K,
+            ScanCode.M
         },
-        new KeyCode[] {
-            KeyCode.NINE,
-            KeyCode.O,
-            KeyCode.L,
-            KeyCode.COMMA,
-            KeyCode.ZERO,
-            KeyCode.P,
-            KeyCode.SEMICOLON,
-            KeyCode.QUOTE,
-            KeyCode.PERIOD,
-            KeyCode.RIGHT_ALT,
-            KeyCode.RIGHT_WINDOWS,
-            KeyCode.MINUS,
-            KeyCode.OPEN_BRACKET,
-            KeyCode.FORWARD_SLASH
+        new ScanCode[] {
+            ScanCode.NINE,
+            ScanCode.O,
+            ScanCode.L,
+            ScanCode.COMMA,
+            ScanCode.ZERO,
+            ScanCode.P,
+            ScanCode.SEMICOLON,
+            ScanCode.QUOTE,
+            ScanCode.PERIOD,
+            ScanCode.RIGHT_ALT,
+            ScanCode.RIGHT_WINDOWS,
+            ScanCode.MINUS,
+            ScanCode.OPEN_BRACKET,
+            ScanCode.FORWARD_SLASH
         },
-        new KeyCode[]
+        new ScanCode[]
         {
-            KeyCode.CLOSE_BRACKET,
-            KeyCode.EQUALS,
-            KeyCode.BACKSPACE,
-            KeyCode.ENTER,
-            KeyCode.HASHTAG,
-            KeyCode.RIGHT_SHIFT,
-            KeyCode.APPLICATION_SELECT,
-            KeyCode.RIGHT_CONTROL
+            ScanCode.CLOSE_BRACKET,
+            ScanCode.EQUALS,
+            ScanCode.BACKSPACE,
+            ScanCode.ENTER,
+            ScanCode.HASHTAG,
+            ScanCode.RIGHT_SHIFT,
+            ScanCode.APPLICATION_SELECT,
+            ScanCode.RIGHT_CONTROL
         }
     };
     
 
-    private Color[] colors = new Color[]
+    [SerializeField]
+    private Color[] colors = new Color[5]
     {
         Color.white,
         Color.red,
@@ -158,28 +159,17 @@ public class KeyboardManager : MonoBehaviour {
         Color.magenta
     };
 
-	// Use this for initialization
+
+
 	void Start () {
-        LogitechGSDK.LogiLedInit();
-
-        /*for(int i=0; i<100; i++)
-            LogitechGSDK.LogiLedSetLightingForKeyWithScanCode((int)i, 100, 100, 100);
-
-        return;*/
+        if(!LogitechGSDK.LogiLedInit())
+        {
+            Debug.LogError("Logitech Gaming Software reported a problem. Is the keyboard connected?");
+        }
 
         for(int i=0; i<zones.Length; ++i)
         {
-            Color c = colors[i];
-
-            int r = (int)Mathf.Round(c.r * 100);
-            int g = (int)Mathf.Round(c.g * 100);
-            int b = (int)Mathf.Round(c.b * 100);
-
-            foreach (var key in zones[i])
-            {
-                LogitechGSDK.LogiLedSetLightingForKeyWithScanCode((int)key, r, g, b);
-            }
-
+            ZoneColor(i, colors[i]);
         }
 
     }
@@ -189,9 +179,195 @@ public class KeyboardManager : MonoBehaviour {
         LogitechGSDK.LogiLedShutdown();
     }
 
-    // Update is called once per frame
+    private void OnGUI()
+    {
+        Event e = Event.current;
+        if (e.isKey)
+        {
+            Debug.Log(e.keyCode);
+        }
+    }
+
     void Update () {
-		
+        HandleInput();
 	}
+
+    /// <summary>
+    /// Helper function that handles keyboard input.
+    /// </summary>
+    private void HandleInput()
+    {
+        for(int i=0; i<zones.Length; i++)
+        {
+            if (IsKeyDownFromZone(i))
+            {
+                ZoneColor(i, Color.black);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Returns true if there is a key currently down in the zone.
+    /// Works only in the update method.
+    /// </summary>
+    private bool IsKeyDownFromZone(int zone)
+    {
+        foreach(var key in zones[zone])
+        {
+            if(Input.GetKeyDown(GetKeyCodeFromScanCode(key)))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Colors a zone into the color given.
+    /// </summary>
+    public void ZoneColor(int zone, Color c)
+    {
+        int r = (int)Mathf.Round(c.r * 100);
+        int g = (int)Mathf.Round(c.g * 100);
+        int b = (int)Mathf.Round(c.b * 100);
+
+        foreach (var key in zones[zone])
+        {
+            LogitechGSDK.LogiLedSetLightingForKeyWithScanCode((int)key, r, g, b);
+        }
+    }
+
+
+    /// <summary>
+    /// Transforms a KeyboardManager.ScanCode to a UnityEngine.KeyCode.
+    /// </summary>
+    public KeyCode GetKeyCodeFromScanCode(ScanCode code)
+    {
+        switch(code)
+        {
+            case ScanCode.ESC:
+                return KeyCode.Escape;
+            case ScanCode.A:
+                return KeyCode.A;
+            case ScanCode.B:
+                return KeyCode.B;
+            case ScanCode.C:
+                return KeyCode.C;
+            case ScanCode.D:
+                return KeyCode.D;
+            case ScanCode.E:
+                return KeyCode.E;
+            case ScanCode.F:
+                return KeyCode.F;
+            case ScanCode.G:
+                return KeyCode.G;
+            case ScanCode.H:
+                return KeyCode.H;
+            case ScanCode.I:
+                return KeyCode.I;
+            case ScanCode.J:
+                return KeyCode.J;
+            case ScanCode.K:
+                return KeyCode.K;
+            case ScanCode.L:
+                return KeyCode.L;
+            case ScanCode.M:
+                return KeyCode.M;
+            case ScanCode.N:
+                return KeyCode.N;
+            case ScanCode.O:
+                return KeyCode.O;
+            case ScanCode.P:
+                return KeyCode.P;
+            case ScanCode.Q:
+                return KeyCode.Q;
+            case ScanCode.R:
+                return KeyCode.R;
+            case ScanCode.S:
+                return KeyCode.S;
+            case ScanCode.T:
+                return KeyCode.T;
+            case ScanCode.U:
+                return KeyCode.U;
+            case ScanCode.V:
+                return KeyCode.V;
+            case ScanCode.W:
+                return KeyCode.W;
+            case ScanCode.X:
+                return KeyCode.X;
+            case ScanCode.Y:
+                return KeyCode.Y;
+            case ScanCode.Z:
+                return KeyCode.Z;
+
+            case ScanCode.ONE:
+                return KeyCode.Alpha1;
+            case ScanCode.TWO:
+                return KeyCode.Alpha2;
+            case ScanCode.THREE:
+                return KeyCode.Alpha3;
+            case ScanCode.FOUR:
+                return KeyCode.Alpha4;
+            case ScanCode.FIVE:
+                return KeyCode.Alpha5;
+            case ScanCode.SIX:
+                return KeyCode.Alpha6;
+            case ScanCode.SEVEN:
+                return KeyCode.Alpha7;
+            case ScanCode.EIGHT:
+                return KeyCode.Alpha8;
+            case ScanCode.NINE:
+                return KeyCode.Alpha9;
+            case ScanCode.ZERO:
+                return KeyCode.Alpha0;
+
+            case ScanCode.BACKSPACE:
+                return KeyCode.Backspace;
+            case ScanCode.ENTER:
+                return KeyCode.Return;
+            case ScanCode.SPACE:
+                return KeyCode.Space;
+            case ScanCode.COMMA:
+                return KeyCode.Comma;
+            case ScanCode.PERIOD:
+                return KeyCode.Period;
+            case ScanCode.SEMICOLON:
+                return KeyCode.Quote;
+            case ScanCode.MINUS:
+                return KeyCode.LeftBracket;
+            case ScanCode.EQUALS:
+                return KeyCode.RightBracket;
+            case ScanCode.FORWARD_SLASH:
+                return KeyCode.Minus;
+            case ScanCode.HASHTAG:
+                return KeyCode.BackQuote;
+            case ScanCode.CLOSE_BRACKET:
+                return KeyCode.Plus;
+            case ScanCode.TILDE:
+                return KeyCode.Slash;
+
+            case ScanCode.LEFT_SHIFT:
+                return KeyCode.LeftShift;
+            case ScanCode.RIGHT_SHIFT:
+                return KeyCode.RightShift;
+            case ScanCode.LEFT_ALT:
+                return KeyCode.LeftAlt;
+            case ScanCode.RIGHT_ALT:
+                return KeyCode.RightAlt;
+            case ScanCode.LEFT_CONTROL:
+                return KeyCode.LeftControl;
+            case ScanCode.RIGHT_CONTROL:
+                return KeyCode.RightControl;
+            case ScanCode.LEFT_WINDOWS:
+                return KeyCode.LeftWindows;
+            case ScanCode.RIGHT_WINDOWS:
+                return KeyCode.RightWindows;
+            case ScanCode.APPLICATION_SELECT:
+                return KeyCode.Menu;
+
+            default:
+                return KeyCode.None;
+        }
+    }
 
 }
