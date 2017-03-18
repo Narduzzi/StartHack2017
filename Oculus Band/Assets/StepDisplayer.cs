@@ -24,9 +24,7 @@ public class StepDisplayer : MonoBehaviour {
 
 	void PushNote(int offset){
 		GameObject newstep = Instantiate(Resources.Load("Prefabs/Step")) as GameObject; 
-		if (newstep == null) {
-			Debug.Log ("NO PREFAB");
-		}
+
 		newstep.transform.parent = this.transform;
 		newstep.GetComponent<StepFaller> ().SetParent (this.transform);
 	}
