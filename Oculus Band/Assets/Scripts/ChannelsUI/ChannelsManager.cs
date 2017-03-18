@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ChannelsManager : MonoBehaviour {
 	public int numberOfchannels;
-	public List<KeyCode> keys ;
+	private List<KeyCode> keys ;
 	public GameObject originalChannel;
 	private List<GameObject> channelsGO;
 	// Use this for initialization
@@ -14,6 +14,12 @@ public class ChannelsManager : MonoBehaviour {
 		if (rec != null) {
 			keys = rec.listKeys;
 		}
+		StepReader reader = this.GetComponent<StepReader> ();
+		if (reader != null) {
+			keys = reader.listKeys;
+			numberOfchannels = reader.listKeys.Count;
+		}
+
 		channelsGO = new List<GameObject> ();
 		createChannels (keys);
 	}
@@ -24,7 +30,7 @@ public class ChannelsManager : MonoBehaviour {
 	}
 
 	public void createChannels(List<KeyCode> keys){
-		for (int i = 0; i < keys.Count; i++) {
+		for (int i = 0; i < numberOfchannels; i++) {
 			GameObject channel = GameObject.Instantiate (originalChannel);
 			channel.GetComponent<StepDisplayer> ().SetKeycode (keys [i]);
 			Vector3 pos = channel.transform.position;

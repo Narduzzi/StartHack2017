@@ -17,8 +17,8 @@ public class StepReader : MonoBehaviour {
 		Song song = Song.Load (name);
 		notes = song.notes;
 		time = offset;
-
-		GenerateListByChannel();
+		notesArray = new List<List<Note>> ();
+		notesArray = GenerateListByChannel(notesArray,listKeys,notes);
 	}
 
 	// Update is called once per frame
@@ -33,8 +33,7 @@ public class StepReader : MonoBehaviour {
 	}
 
 
-	void GenerateListByChannel(){
-		notesArray = new List<List<Note>>();
+	public static List<List<Note>> GenerateListByChannel(List<List<Note>> notesArray, List<KeyCode> listKeys, List<Note> notes){
 		for (int i = 0; i < listKeys.Count; i++) {
 			notesArray.Add (new List<Note> ());
 		}
@@ -42,6 +41,7 @@ public class StepReader : MonoBehaviour {
 			Note noteI = notes[i];
 			notesArray[(int)noteI.type].Add (noteI);
 		}
+		return notesArray;
 	}
 
 	Note PopAndRemove(List<Note> list,float time){
