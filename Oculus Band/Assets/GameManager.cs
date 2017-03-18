@@ -9,12 +9,13 @@ public class GameManager : MonoBehaviour {
 	private List<List<Note>> notesArray = new List<List<Note>>();
 	private float time;
 	public List<KeyCode> keys;
-	public float toleranceBeforeMs = 0.15f;
-	public float toleranceAfterMs = 0.15f;
+	public float toleranceBeforeMs;
+	public float toleranceAfterMs; 
 	private bool valid = true;
 	private List<Note> notes;
 	public string instrument;
 	public AudioManager audioManager;
+	private float treatmentTime = 0.3f;
 	// Use this for initialization
 	void Start () {
 		Song song = Song.Load (name);
@@ -30,36 +31,53 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		time += Time.deltaTime;
+		notesArray = ReSyncList (notesArray, time);
+
 		for (int i = 0; i < keys.Count; i++){
-			if (Input.GetKeyDown (keys [i])) {
-				float perfectTime = notesArray[i][0].time;
-				if (time <= perfectTime + toleranceAfterMs && time >= perfectTime - toleranceBeforeMs) {
-					valid = true;
+
+			if (notesArray [i].Count > 0) {
+				float perfectTime = notesArray [i] [0].time;
+				Debug.Log (perfectTime + " " + time+treatmentTime+toleranceAfterMs+ " " + (perfectTime < time+treatmentTime+toleranceAfterMs));
+				if (perfectTime < time) {
+					
+					Debug.Log ("MISSED CHANNEL " + i);
+					Debug.LogError ("MISSED : PERFECT TIME WAS : " + perfectTime + " but now " + time);
+					valid = false;
+					TakeDecision (valid);
+				}
+
+				if (Input.GetKeyDown (keys [i])) {
+					if (time < perfectTime + toleranceAfterMs && time > perfectTime - toleranceBeforeMs) {
+						valid = true;
+					} else {
+						valid = false;
+					}
+					TakeDecision (valid);
+					break;
+
 				}
 			}
-
-			if (notesArray [i] [0].time < time+toleranceAfterMs) {
-				valid = false;
-			}
 		}
+	}
+
+	private void TakeDecision(bool valid){
 		if (!valid) {
 			audioManager.Failed (instrument);
 		} else {
 			audioManager.Success (instrument);
 			Debug.Log ("Success! " + instrument);
 		}
-
-		notesArray = ReSyncList (notesArray,time);
 	}
 
 	private List<List<Note>> ReSyncList(List<List<Note>> notesArray,float time){
 		for (int i = 0; i < notesArray.Count; i++) {
 			for (int j = 0; j < notesArray [i].Count; j++) {
 				Note note = notesArray [i] [j];
-				if (note.time < time)
+				if (note.time < time) {
 					notesArray [i].Remove (note);
 				}
 			}
+		}
 		return notesArray;
 	}
 }

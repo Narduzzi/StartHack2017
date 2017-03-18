@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour {
 	public AudioSource voice_source;
 	public AudioSource error_source;
 	public bool PlayOnAwake;
+	public float delay;
 	public bool waitedSec = true;
 	private bool[] failedInstruments = new bool[4];
 
@@ -17,8 +18,15 @@ public class AudioManager : MonoBehaviour {
 		drums_source.playOnAwake = PlayOnAwake;
 		piano_source.playOnAwake = PlayOnAwake;
 		voice_source.playOnAwake = PlayOnAwake;
+		StartCoroutine ("Launch");
 	}        
-		
+
+	IEnumerator Launch(){
+		yield return new WaitForSeconds(delay);
+		drums_source.Play ();
+		piano_source.Play();
+		voice_source.Play ();
+	}
 
 	public void Failed(string instrument){
 		if (failedInstruments [getNumberInstrument (instrument)] == false) {
@@ -51,7 +59,10 @@ public class AudioManager : MonoBehaviour {
 			Debug.Log ("Set volume of " + instrument + " to 1.0");
 			source.volume = 1.0f;
 		}
+
+		failedInstruments [getNumberInstrument (instrument)] = false;
 	}
+
 
 	private int getNumberInstrument(string instrument){
 		if (instrument == "Voice") {
