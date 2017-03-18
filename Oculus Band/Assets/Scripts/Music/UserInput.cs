@@ -27,21 +27,23 @@ public class UserInput : MonoBehaviour {
         remainingNotes.Sort(new CompareNote());
     }
 
-    public uint PlayNote(float time, uint type)
+    public bool PlayNote(float time, uint type)
     {
-        uint found = 0;
+        bool found = false;
+        Note note = null;
 
         foreach(var n in remainingNotes)
         {
-            if (Mathf.Abs(time - n.time) <= maxLatency)
+            if (n.type == type && Mathf.Abs(time - n.time) <= maxLatency)
             {
-                found += 1;
+                note = n;
+                found = true;
             }
         }
 
-        if (found > 0)
+        if (found)
         {
-            remainingNotes.RemoveAll(n => Mathf.Abs(time - n.time) <= maxLatency);
+            remainingNotes.Remove(note);
         }
         return found;
     }
