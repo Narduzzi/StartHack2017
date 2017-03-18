@@ -33,14 +33,26 @@ namespace XMLDataModel
 
 
 
-        public void Save()
+        public void Save(string fpath)
         {
-            string fpath = System.IO.Path.Combine(path, name + ".xml");
             var serializer = new XmlSerializer(typeof(Song));
             var stream = new FileStream(fpath, FileMode.Create);
             serializer.Serialize(stream, this);
 
             stream.Close();
+        }
+
+        public Song LoadSong(string songName)
+        {
+            string fpath = Path.Combine(Path.Combine(path, "Tracks/"), songName + ".xml");
+            return Load(fpath);
+        }
+
+        
+        public void SaveSong()
+        {
+            string fpath = Path.Combine(Path.Combine(path, "Tracks/"), name + ".xml");
+            Save(fpath);
         }
 
         public Song Load(string fpath)
