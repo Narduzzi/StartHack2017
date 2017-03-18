@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 
-			if (notesArray [i] [0].time < time) {
+			if (notesArray [i] [0].time < time+toleranceAfterMs) {
 				valid = false;
 			}
 		}
