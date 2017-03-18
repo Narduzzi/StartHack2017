@@ -7,23 +7,31 @@ public class StepDisplayer : MonoBehaviour {
 
 	//public List<Note> notes;
 	// Use this for initialization
-	public GameObject step;
+
 	private Vector3 initialPos;
 	private Quaternion initialRot;
+	public KeyCode keycode;
 	void Start () {
-		initialPos = step.transform.position;
-		initialRot = step.transform.rotation;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.A)) {
+		if (Input.GetKeyDown (keycode)) {
+			print ("Pressed " + keycode);
 			PushNote (0);
 		}
 	}
 
 	void PushNote(int offset){
-		GameObject newstep = GameObject.Instantiate (step,initialPos,initialRot);
+		GameObject newstep = Instantiate(Resources.Load("Prefabs/Step")) as GameObject; 
+		if (newstep == null) {
+			Debug.Log ("NO PREFAB");
+		}
 		newstep.transform.parent = this.transform;
+		newstep.GetComponent<StepFaller> ().SetParent (this.transform);
+	}
+
+	public void SetKeycode(KeyCode k){
+		this.keycode = k;
 	}
 }

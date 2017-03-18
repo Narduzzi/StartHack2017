@@ -22,16 +22,16 @@ public class StepRecorder : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		for (int i = 0; i < listKeys.Count; i++) {
-			if (Input.GetKeyDown (listKeys[i])) {
-				Note newNote = new Note (source.time, 1);
+			if (Input.GetKeyDown (listKeys [i])) {
+				Note newNote = new Note (source.time, (uint)i);
 				notes.Add (newNote);
 			}
 		}
 
-		if (source.time > source.clip.length/10.0) {
-			Debug.Log ("Finished!");
+		if (Input.GetKeyDown(KeyCode.Space) || source.time > source.clip.length) {
 			song = new Song (name, notes);
-			//song.Save ();
+			song.Save ();
+			Debug.Log ("Song saved : " + name);
 		}
 	}
 }
