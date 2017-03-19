@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
 	public string instrument;
 	public AudioManager audioManager;
 	private float treatmentTime = 0.3f;
-
+	public InstrumentManager instruManager;
 
 
 	// Use this for initialization
@@ -52,7 +52,8 @@ public class GameManager : MonoBehaviour {
                 }
                 else
                 {
-                    if (Input.GetKeyDown(keys[i]))
+                    //if (Input.GetKeyDown(keys[i]))
+					if(instruManager.KeyPressed(i))
                     {
                         Debug.Log("Key pressed");
 
