@@ -27,9 +27,12 @@ public class InstrumentManager : MonoBehaviour {
         pressedKeys[index] = true;
     }
 
-    public void UnpressKey(int index)
+    private void Update()
     {
-        pressedKeys[index] = false;
+        for(int i=0; i<keys; i++)
+        {
+            pressedKeys[i] = false;
+        }
     }
 
 }

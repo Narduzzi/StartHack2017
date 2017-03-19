@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class KeyboardManager : MonoBehaviour {
 
-    public Action<int> OnPress;
+    public InstrumentManager instrumentManager;
 
     public enum ScanCode
     {
@@ -211,8 +211,7 @@ public class KeyboardManager : MonoBehaviour {
 
     public void Press(int zone)
     {
-        if (OnPress != null)
-            OnPress.Invoke(zone);
+        instrumentManager.PressKey(zone);
 
         ZoneColor(zone, Color.black);
 

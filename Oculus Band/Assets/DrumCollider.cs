@@ -44,8 +44,6 @@ public class DrumCollider : MonoBehaviour {
     {
         if (other.gameObject.tag == "DrumStick")
         {
-            instrumentManager.UnpressKey(type);
-
             var mr = gameObject.GetComponent<MeshRenderer>();
             if(mr != null)
             {
