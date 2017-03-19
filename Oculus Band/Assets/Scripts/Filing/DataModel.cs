@@ -78,7 +78,6 @@ namespace XMLDataModel
             this.time = time;
             this.type = type;
             this.bonus = bonus;
-            instance = null;
         }
 
         [XmlAttribute("time")]
@@ -89,9 +88,6 @@ namespace XMLDataModel
 
         [XmlAttribute("bonus")]
         public bool bonus;
-
-        [XmlIgnore]
-        public GameObject instance;
     }
 
 }

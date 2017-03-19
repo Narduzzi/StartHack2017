@@ -19,20 +19,19 @@ public class StepDisplayer : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (keycode)) {
 			print ("Pressed " + keycode);
-			PushNote (null, 0);
+			PushNote (0);
 		}
 	}
 
-	public void PushNote(Note note, float offset){
+	public void PushNote(float offset){
 		//GameObject newstep = Instantiate(Resources.Load("Prefabs/Step")) as GameObject;
 		GameObject newstep = Instantiate(originalStep) as GameObject;
-		note.instance = newstep;
-		newstep.GetComponent<StepFaller> ().original = false;
+        newstep.GetComponent<StepFaller> ().original = false;
 		newstep.transform.parent = this.transform;
 		newstep.GetComponent<StepFaller> ().SetParent (this.transform);
-	}
+    }
 
-	public void SetKeycode(KeyCode k){
+    public void SetKeycode(KeyCode k){
 		this.keycode = k;
 	}
 }

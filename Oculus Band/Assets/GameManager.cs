@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour {
 
 		if(currentTime>audioManager.piano_source.clip.length){
 			//QUIT
-			SceneManager.LoadScene(2);
+			//SceneManager.LoadScene(2);
 		}
 	}
 
