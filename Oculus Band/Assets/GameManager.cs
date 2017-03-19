@@ -55,18 +55,13 @@ public class GameManager : MonoBehaviour {
                     //if (Input.GetKeyDown(keys[i]))
 					if(instruManager.KeyPressed(i))
                     {
-                        Debug.Log("Key pressed");
-
                         if (Mathf.Abs(currentNote.time - currentTime) < toleranceTime)
                         {
                             valid = true;
-                        }
-                        else
-                        {
-                            valid = false;
+                            nl.Remove(currentNote);
                         }
 
-                        nl.Remove(currentNote);
+                        Debug.Log("Key " + i + " pressed (valid=" + valid + ").");
                     }
                 }
             }

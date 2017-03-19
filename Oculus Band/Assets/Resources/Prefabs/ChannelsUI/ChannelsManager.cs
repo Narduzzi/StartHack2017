@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using XMLDataModel;
 
 public class ChannelsManager : MonoBehaviour {
 	public int numberOfchannels;
@@ -44,7 +44,7 @@ public class ChannelsManager : MonoBehaviour {
 	}
 
 
-	public void PushNote(int index,float offset){
-		channelsGO [index].GetComponent<StepDisplayer> ().PushNote (offset);
+	public void PushNote(Note note, int index, float offset){
+		channelsGO [index].GetComponent<StepDisplayer> ().PushNote (note, offset);
 	}
 }

@@ -27,7 +27,7 @@ public class StepReader : MonoBehaviour {
 		for (int i = 0; i < listKeys.Count; i++) {
 			Note note = PopAndRemove (notesArray [i], time);
 			if (note != null) {
-				this.GetComponent<ChannelsManager> ().PushNote (i, offset);;
+				this.GetComponent<ChannelsManager> ().PushNote (note, i, offset);;
 			}
 		}
 	}

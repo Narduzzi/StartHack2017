@@ -25,7 +25,7 @@ public class ColorAnimation : MonoBehaviour {
 		color = new Color(lerped.x, lerped.y, lerped.z);
 
 		t = t + Time.deltaTime * speed;
-		Debug.LogWarning (t);
+		//Debug.LogWarning (t);
 		if (t > 1) {
 			t = 0;
 			color = next;
@@ -39,7 +39,7 @@ public class ColorAnimation : MonoBehaviour {
 		float a = Random.Range (0, 1.0f);
 		float b = Random.Range (0, 1.0f);
 		float c= Random.Range (0, 1.0f);
-		Debug.LogWarning (a + " " + b + " " + c);
+		//Debug.LogWarning (a + " " + b + " " + c);
 		return new Color (a, b, c);
 	}
 }

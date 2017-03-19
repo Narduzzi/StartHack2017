@@ -31,6 +31,7 @@ public class DrumCollider : MonoBehaviour {
         if (other.gameObject.tag == "DrumStick")
         {
             instrumentManager.PressKey(type);
+            StartCoroutine("Release");
 
             var mr = gameObject.GetComponent<MeshRenderer>();
             if (mr != null)
@@ -40,10 +41,18 @@ public class DrumCollider : MonoBehaviour {
         }
     }
 
+    IEnumerator Release()
+    {
+        yield return new WaitForSeconds(0.1f);
+        instrumentManager.UnpressKey(type);
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "DrumStick")
         {
+            instrumentManager.UnpressKey(type);
+
             var mr = gameObject.GetComponent<MeshRenderer>();
             if(mr != null)
             {
