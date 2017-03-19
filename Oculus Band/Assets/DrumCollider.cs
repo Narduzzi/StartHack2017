@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DrumCollider : MonoBehaviour {
 
+    public InstrumentManager instrumentManager;
+    public int type = -1;
+
     private Collider m_collider;
     private Color backupColor;
 
@@ -16,15 +19,24 @@ public class DrumCollider : MonoBehaviour {
             throw new MissingComponentException("No collider attached to drum");
         }
 
-        backupColor = this.GetComponent<MeshRenderer>().material.color;
+        var mr = gameObject.GetComponent<MeshRenderer>();
+        if (mr != null)
+        {
+            backupColor = mr.material.color;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger");
         if (other.gameObject.tag == "DrumStick")
         {
-            this.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            instrumentManager.PressKey(type);
+
+            var mr = gameObject.GetComponent<MeshRenderer>();
+            if (mr != null)
+            {
+                mr.material.color = backupColor;
+            }
         }
     }
 
@@ -32,7 +44,13 @@ public class DrumCollider : MonoBehaviour {
     {
         if (other.gameObject.tag == "DrumStick")
         {
-            this.gameObject.GetComponent<MeshRenderer>().material.color = backupColor;
+            instrumentManager.UnpressKey(type);
+
+            var mr = gameObject.GetComponent<MeshRenderer>();
+            if(mr != null)
+            {
+                mr.material.color = backupColor;
+            }
         }
     }
 }
