@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class KeyboardManager : MonoBehaviour {
+
+    public Action<int> OnPress;
 
     public enum ScanCode
     {
@@ -179,17 +182,6 @@ public class KeyboardManager : MonoBehaviour {
         LogitechGSDK.LogiLedShutdown();
     }
 
-    /*
-    private void OnGUI()
-    {
-        Event e = Event.current;
-        if (e.isKey)
-        {
-            Debug.Log(e.keyCode);
-        }
-    }
-    */
-
     private IEnumerator WaitAndSwitch(float time, int zone, Color c)
     {
         yield return new WaitForSeconds(time);
@@ -210,10 +202,21 @@ public class KeyboardManager : MonoBehaviour {
         {
             if (IsKeyDownFromZone(i))
             {
-                ZoneColor(i, Color.black);
-                StartCoroutine(WaitAndSwitch(1.0f, i, colors[i]));
+                Press(i);
             }
         }
+    }
+
+
+
+    public void Press(int zone)
+    {
+        if (OnPress != null)
+            OnPress.Invoke(zone);
+
+        ZoneColor(zone, Color.black);
+
+        StartCoroutine(WaitAndSwitch(1.0f, zone, colors[zone]));
     }
 
     /// <summary>
