@@ -21,6 +21,7 @@ limitations under the License.
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class OVRGearVrController : MonoBehaviour
 {
@@ -48,6 +49,20 @@ public class OVRGearVrController : MonoBehaviour
         if (!controllerConnected)
         {
             return;
+        }
+
+        if (OVRInput.GetDown(OVRInput.Button.Any))
+        {
+            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hit;
+
+            if(Physics.Raycast(ray, out hit, 10))
+            {
+                if(hit.transform.gameObject.tag == "button")
+                {
+                    SceneManager.LoadScene("Concert");
+                }
+            }
         }
     }
 }

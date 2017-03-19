@@ -44,7 +44,7 @@ public class ChannelsManager : MonoBehaviour {
 	}
 
 
-	public void PushNote(Note note, int index, float offset){
-		channelsGO [index].GetComponent<StepDisplayer> ().PushNote (note, offset);
+	public void PushNote(int index, float offset){
+		channelsGO [index].GetComponent<StepDisplayer> ().PushNote (offset);
 	}
 }
