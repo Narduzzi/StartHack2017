@@ -33,9 +33,9 @@ public class ChannelsManager : MonoBehaviour {
 		for (int i = 0; i < numberOfchannels; i++) {
 			GameObject channel = GameObject.Instantiate (originalChannel);
 			channel.GetComponent<StepDisplayer> ().SetKeycode (keys [i]);
-			Vector3 pos = channel.transform.position;
+			Vector3 pos = channel.transform.localPosition;
 			pos.x = pos.x + 2*(float)i;
-			channel.transform.position = pos;
+			channel.transform.localPosition = pos;
 			channel.transform.parent = this.transform;
 			channel.SetActive (true);
 			channelsGO.Add (channel);
