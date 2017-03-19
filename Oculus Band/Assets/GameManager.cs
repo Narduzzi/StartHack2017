@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using XMLDataModel;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public MeshRenderer cubeRenderer;
@@ -18,7 +20,8 @@ public class GameManager : MonoBehaviour {
 	public AudioManager audioManager;
 	private float treatmentTime = 0.3f;
 	public InstrumentManager instruManager;
-
+	public int score;
+	public Text text;
 
 	// Use this for initialization
 	void Start () {
@@ -47,17 +50,21 @@ public class GameManager : MonoBehaviour {
 
                 if (currentNote.time + toleranceTime < currentTime)
                 {
-                    valid = false;
+					valid = false;
+					score -= 50;
+					if (score <= 0) {
+						score = 0;
+					}
                     nl.Remove(currentNote);
                 }
                 else
                 {
-                    //if (Input.GetKeyDown(keys[i]))
-					if(instruManager.KeyPressed(i))
+					if (Input.GetKeyDown(keys[i]) || instruManager.KeyPressed(i))
                     {
                         if (Mathf.Abs(currentNote.time - currentTime) < toleranceTime)
-                        {
+						{
                             valid = true;
+							score += 100;
                             nl.Remove(currentNote);
                         }
 
@@ -67,9 +74,14 @@ public class GameManager : MonoBehaviour {
             }
             i++;
         }
-
+		text.text = "Score\n" + score;
         UpdateBox();
         UpdateAudioManager();
+
+		if(currentTime>audioManager.piano_source.clip.length){
+			//QUIT
+			SceneManager.LoadScene(2);
+		}
 	}
 
     public void UpdateAudioManager()
