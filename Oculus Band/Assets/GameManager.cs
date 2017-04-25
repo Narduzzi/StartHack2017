@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour {
     public float toleranceTime = 0.2f;
     public List<KeyCode> keys;
 
-    public string songName;
+    public TextAsset songAsset;
+
     private List<Note> notes;
     private List<List<Note>> notesArray = new List<List<Note>>();
 	private float startTime;
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Song song = Song.Load (songName);
+		Song song = Song.Load (this.songAsset);
 		notes = song.notes;
 		if (notes == null || notes.Count < 2) {
 			throw new MissingComponentException ("No song found");

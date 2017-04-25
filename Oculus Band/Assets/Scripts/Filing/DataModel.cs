@@ -6,13 +6,9 @@ using System.Xml.Serialization;
 
 using UnityEngine;
 
-namespace XMLDataModel
-{
+namespace XMLDataModel {
     [XmlRoot("Song")]
-    public class Song
-    {
-        private static string path = Application.dataPath;
-
+    public class Song {
         [XmlAttribute("name")]
         public string name;
 
@@ -25,56 +21,71 @@ namespace XMLDataModel
 
         public Song() { }
 
-        public Song(string name, List<Note> notes)
-        {
+        public Song(string name, List<Note> notes) {
             this.name = name;
             this.notes = new List<Note>(notes);
         }
 
 
+        private TextAsset GetAssetFromSongName(string songName) {
+            if (songName.EndsWith(".xml"))
+                throw new System.Exception("The asset should not have a file extension at the end!");
 
-        public void Save(string fpath)
-        {
-            var serializer = new XmlSerializer(typeof(Song));
-            var stream = new FileStream(fpath, FileMode.Create);
-            serializer.Serialize(stream, this);
-
-            stream.Close();
+            string fpath = Path.Combine("Tracks/", name);
+            return Resources.Load<TextAsset>(fpath);
         }
 
-        public Song LoadSong(string songName)
-        {
-            string fpath = Path.Combine(Path.Combine(path, "Tracks/"), songName + ".xml");
+        public Song LoadSong(string songName) {
+            var fpath = GetAssetFromSongName(name);
             return Load(fpath);
         }
 
-        
-        public void SaveSong()
-        {
-            string fpath = Path.Combine(Path.Combine(path, "Tracks/"), name + ".xml");
+
+        public void SaveSong() {
+            var fpath = GetAssetFromSongName(name);
             Save(fpath);
         }
 
-        public static Song Load(string name)
-        {
-			string fpath = "Assets\\Resources\\Tracks\\" + name;
-            var serializer = new XmlSerializer(typeof(Song));
-            var stream = new FileStream(fpath, FileMode.Open);
-            var container = serializer.Deserialize(stream) as Song;
-            stream.Close();
-
-            return container;
+        public static Song Load(string fpath) {
+            TextAsset songAsset = Resources.Load(fpath) as TextAsset;
+            return Load(songAsset);
         }
+
+        public static Song Load(TextAsset songAsset) {
+            if (songAsset == null)
+                throw new System.Exception("Song does not exist!");
+
+            var serializer = new XmlSerializer(typeof(Song));
+            using (Stream ms = new MemoryStream(songAsset.bytes)) {
+                var stream = new StreamReader(ms, System.Text.Encoding.UTF8, true);
+                return serializer.Deserialize(stream) as Song;
+            }
+        }
+
+        public void Save() {
+            TextAsset songAsset = GetAssetFromSongName(name);
+            Save(songAsset);
+        }
+
+        public void Save(TextAsset songAsset) {
+            if (songAsset == null)
+                throw new System.Exception("Song does not exist!");
+
+            var serializer = new XmlSerializer(typeof(Song));
+            using (Stream ms = new MemoryStream(songAsset.bytes)) {
+                var stream = new StreamWriter(ms, System.Text.Encoding.UTF8);
+                serializer.Serialize(stream, this);
+            }
+        }
+
     }
 
-    public class Note
-    {
+    public class Note {
         public Note() { }
 
         public Note(float time, uint type) : this(time, type, false) { }
 
-        public Note(float time, uint type, bool bonus)
-        {
+        public Note(float time, uint type, bool bonus) {
             this.time = time;
             this.type = type;
             this.bonus = bonus;
