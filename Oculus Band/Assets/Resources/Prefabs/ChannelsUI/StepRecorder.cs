@@ -6,7 +6,7 @@ using XMLDataModel;
 public class StepRecorder : MonoBehaviour {
 
 	public AudioSource source;
-	public string name;
+	public string songName;
 	private Song song;
 	private List<Note> notes;
 	private float time;
@@ -29,9 +29,9 @@ public class StepRecorder : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.Space) || source.time > source.clip.length) {
-			song = new Song (name, notes);
-			song.Save (name);
-			Debug.Log ("Song saved : " + name);
+			song = new Song (songName, notes);
+			song.Save ();
+			Debug.Log ("Song saved : " + songName);
 		}
 	}
 }

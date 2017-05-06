@@ -27,6 +27,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1053742904624276
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4140570699672840}
+  - component: {fileID: 33113341482461434}
+  - component: {fileID: 136316389069729636}
+  - component: {fileID: 23317922600255410}
+  - component: {fileID: 114018429773574590}
+  m_Layer: 0
+  m_Name: Cylinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1232237144811394
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,6 +104,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4474763968397318}
+  - component: {fileID: 114441397962830346}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: Untagged
@@ -209,7 +229,20 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
+--- !u!4 &4140570699672840
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1053742904624276}
+  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.01, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 4448849467344218}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
 --- !u!4 &4196610132111510
 Transform:
   m_ObjectHideFlags: 1
@@ -317,6 +350,7 @@ Transform:
   m_Children:
   - {fileID: 4282650860989914}
   - {fileID: 4349542833946000}
+  - {fileID: 4140570699672840}
   m_Father: {fileID: 4474763968397318}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
@@ -377,6 +411,37 @@ Transform:
   m_Father: {fileID: 4474763968397318}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23317922600255410
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1053742904624276}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 01afb2a8f970f18458b4e2672d5caad4, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!23 &23788910681091216
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -390,7 +455,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d575290df71e2c241af21a76513423e9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -470,6 +535,13 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!33 &33113341482461434
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1053742904624276}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33483328657876202
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -847,6 +919,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114018429773574590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1053742904624276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03dc609a332c26549864799f44d85920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  MaxTime: 8
+  original: 1
 --- !u!114 &114088277508799678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -859,7 +945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keycode: 0
-  originalStep: {fileID: 1567829504117882}
+  originalStep: {fileID: 1053742904624276}
 --- !u!114 &114164642636445772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -885,9 +971,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c7202507dcb8742bfaf87a01cfb444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: LO_DRUM_TRACK.xml
+  songAsset: {fileID: 4900000, guid: 37bfd7cfe29b46b4bb0125ed162f834e, type: 3}
   listKeys: 0000000000000000000000000000000000000000
   offset: 4
+--- !u!114 &114441397962830346
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1496948317459808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 083fa8256c1089d45aef985628f685f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: -2, y: 8, z: 4}
+  scale: {x: 1, y: 1, z: 1}
 --- !u!114 &114762913832773428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -913,11 +1012,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubeRenderer: {fileID: 23907558652568110}
-  toleranceTime: 0.5
+  toleranceTime: 0.8
   keys: 6100000073000000640000006b0000006c000000
-  songName: LO_DRUM_TRACK.xml
+  songAsset: {fileID: 4900000, guid: 37bfd7cfe29b46b4bb0125ed162f834e, type: 3}
   instrument: Drums
   audioManager: {fileID: 114911768844683504}
+  instruManager: {fileID: 0}
+  score: 0
+  text: {fileID: 0}
 --- !u!114 &114911768844683504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -936,3 +1038,16 @@ MonoBehaviour:
   PlayOnAwake: 0
   delay: 0.1
   waitedSec: 0
+--- !u!136 &136316389069729636
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1053742904624276}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

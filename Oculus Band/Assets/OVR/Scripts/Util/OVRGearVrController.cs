@@ -21,19 +21,24 @@ limitations under the License.
 
 using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Simple helper script that conditionally enables rendering of a controller if it is connected.
+/// </summary>
 public class OVRGearVrController : MonoBehaviour
 {
+	/// <summary>
+	/// The root GameObject that should be conditionally enabled depending on controller connection status.
+	/// </summary>
     public GameObject m_model;
+
+	/// <summary>
+	/// The controller that determines whether or not to enable rendering of the controller model.
+	/// </summary>
     public OVRInput.Controller m_controller;
+
     private bool m_prevControllerConnected = false;
     private bool m_prevControllerConnectedCached = false;
-
-	void Start()
-    {
-
-	}
 
     void Update()
     {
@@ -49,20 +54,6 @@ public class OVRGearVrController : MonoBehaviour
         if (!controllerConnected)
         {
             return;
-        }
-
-        if (OVRInput.GetDown(OVRInput.Button.Any))
-        {
-            Ray ray = new Ray(transform.position, transform.forward);
-            RaycastHit hit;
-
-            if(Physics.Raycast(ray, out hit, 10))
-            {
-                if(hit.transform.gameObject.tag == "button")
-                {
-                    SceneManager.LoadScene("Concert");
-                }
-            }
         }
     }
 }

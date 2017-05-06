@@ -5,7 +5,8 @@ using XMLDataModel;
 
 public class StepReader : MonoBehaviour {
 
-	public string name;
+	public TextAsset songAsset;
+
 	private List<Note> notes;
 	private float time;
 	private List<List<Note>> notesArray = new List<List<Note>>();
@@ -15,7 +16,7 @@ public class StepReader : MonoBehaviour {
 	public float time_offset = 4.0f;
 	// Use this for initialization
 	void Start () {
-		Song song = Song.Load (name);
+		Song song = Song.Load (songAsset);
 		notes = song.notes;
 		time = time_offset;
 		notesArray = new List<List<Note>> ();

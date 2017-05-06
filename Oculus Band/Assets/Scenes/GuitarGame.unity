@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
-  name: LO_DRUM_TRACK
+  songName: 
   listKeys: 6100000073000000640000006b0000006c000000
 --- !u!4 &2796486
 Transform:
@@ -403,32 +403,23 @@ Prefab:
       propertyPath: time_offset
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4140570699672840, guid: 0384e98b503e03944ad666ce4949d2a4, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114441397962830346, guid: 0384e98b503e03944ad666ce4949d2a4,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0384e98b503e03944ad666ce4949d2a4, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &37858969 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1496948317459808, guid: 0384e98b503e03944ad666ce4949d2a4,
-    type: 2}
-  m_PrefabInternal: {fileID: 37858968}
 --- !u!4 &37858970 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4448849467344218, guid: 0384e98b503e03944ad666ce4949d2a4,
     type: 2}
   m_PrefabInternal: {fileID: 37858968}
---- !u!114 &37858971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 37858969}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 083fa8256c1089d45aef985628f685f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  position: {x: -2, y: 10, z: 4}
-  scale: {x: 1, y: 1, z: 1}
 --- !u!1 &147776063
 GameObject:
   m_ObjectHideFlags: 0
