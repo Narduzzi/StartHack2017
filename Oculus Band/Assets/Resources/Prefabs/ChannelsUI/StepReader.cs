@@ -11,14 +11,18 @@ public class StepReader : MonoBehaviour {
 	private List<List<Note>> notesArray = new List<List<Note>>();
 
 	public List<KeyCode> listKeys;	
-	public float offset = 4.0f;
+	public float offset = 0.2f;
+	public float time_offset = 4.0f;
 	// Use this for initialization
 	void Start () {
 		Song song = Song.Load (name);
 		notes = song.notes;
-		time = offset;
+		time = time_offset;
 		notesArray = new List<List<Note>> ();
 		notesArray = GenerateListByChannel(notesArray,listKeys,notes);
+		Debug.Log (this.transform.parent.transform.localRotation);
+		this.transform.localRotation = this.transform.parent.transform.localRotation;
+		this.transform.localScale = this.transform.parent.localScale;
 	}
 
 	// Update is called once per frame

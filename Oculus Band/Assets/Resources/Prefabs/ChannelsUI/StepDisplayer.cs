@@ -8,27 +8,55 @@ public class StepDisplayer : MonoBehaviour {
 	//public List<Note> notes;
 	// Use this for initialization
 
-	private Vector3 initialPos;
-	private Quaternion initialRot;
 	public KeyCode keycode;
 	public GameObject originalStep;
+
+	public StepReader stepReader;
+	private GameObject original_parent;
+	public bool recording_mode = false;
+
 	void Start () {
+		if (stepReader == null) {
+			throw new MissingComponentException ("Parent is null");
+		}
+		original_parent = stepReader.transform.parent.gameObject;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (keycode)) {
 			print ("Pressed " + keycode);
-			PushNote (0);
+			if(recording_mode){
+				PushNote (0);
+			}
 		}
 	}
 
 	public void PushNote(float offset){
 		//GameObject newstep = Instantiate(Resources.Load("Prefabs/Step")) as GameObject;
 		GameObject newstep = Instantiate(originalStep) as GameObject;
-        newstep.GetComponent<StepFaller> ().original = false;
+		Transform StepReader = this.transform.parent;
+
+		Vector3 parent_scale = original_parent.transform.localScale;
+
+
+		newstep.transform.localScale = new Vector3 (2.0f/parent_scale.x, 0.1f/parent_scale.y, 2.0f/parent_scale.z);
 		newstep.transform.parent = this.transform;
-		newstep.GetComponent<StepFaller> ().SetParent (this.transform);
+		newstep.transform.localPosition = new Vector3 (0.0f, offset, 0.0f);
+		//newstep.transform.lossyScale = this.transform.lossyScale;
+		//print (newstep.transform.position);
+		//newstep.transform.parent = this.transform;
+		//newstep.transform.localPosition = this.transform.position;
+		/*
+		Vector3 pos = newstep.transform.position;
+		pos.x -= offset;
+		newstep.transform.position = pos;
+		newstep.transform.rotation = parent.transform.rotation;
+
+        newstep.GetComponent<StepFaller> ().original = false;
+		newstep.transform.parent = parent.transform;
+		newstep.GetComponent<StepFaller> ().SetPosition (newstep.transform.position);
+		*/
     }
 
     public void SetKeycode(KeyCode k){

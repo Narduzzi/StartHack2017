@@ -5,7 +5,7 @@ using UnityEngine;
 public class StepFaller : MonoBehaviour {
 	public float speed = 2.0f;
 	private float createdTime = 0f;
-	public float MaxTime = 30.0f;
+	public float MaxTime = 20.0f;
 	public bool original = true;
 	// Use this for initialization
 	void Start () {
@@ -30,10 +30,10 @@ public class StepFaller : MonoBehaviour {
 		}
 	}
 
-	public void SetParent(Transform parent){
-		Vector3 posParent = parent.transform.position;
+	public void SetPosition(Vector3 position){
+		Vector3 spawn_pos = position;
 		Vector3 thisPos = this.transform.position;
-		this.transform.position = posParent;
-		this.transform.parent = parent;
+		this.transform.position = spawn_pos;
+		//this.transform.parent = parent;
 	}
 }

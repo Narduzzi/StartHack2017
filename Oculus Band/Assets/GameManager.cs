@@ -59,22 +59,24 @@ public class GameManager : MonoBehaviour {
                 }
                 else
                 {
-					if (Input.GetKeyDown(keys[i]) || instruManager.KeyPressed(i))
-                    {
-                        if (Mathf.Abs(currentNote.time - currentTime) < toleranceTime)
-						{
-                            valid = true;
-							score += 100;
-                            nl.Remove(currentNote);
-                        }
+					if (instruManager != null) {
+						if (Input.GetKeyDown (keys [i]) || instruManager.KeyPressed (i)) {
+							if (Mathf.Abs (currentNote.time - currentTime) < toleranceTime) {
+								valid = true;
+								score += 100;
+								nl.Remove (currentNote);
+							}
 
-                        Debug.Log("Key " + i + " pressed (valid=" + valid + ").");
-                    }
+							Debug.Log ("Key " + i + " pressed (valid=" + valid + ").");
+						}
+					}
                 }
             }
             i++;
         }
-		text.text = "Score\n" + score;
+		if (text != null) {
+			text.text = "Score\n" + score;
+		}
         UpdateBox();
         UpdateAudioManager();
 
