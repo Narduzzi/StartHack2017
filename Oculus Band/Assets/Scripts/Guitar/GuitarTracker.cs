@@ -78,7 +78,7 @@ public class GuitarTracker : MonoBehaviour {
     private void InitializeNotes() {
         for (int i= 0; i<noteColors.Length; i++) {
             GameObject noteObject = notesContainer.transform.GetChild(i).gameObject;
-            Renderer mr = noteObject.GetComponent<Renderer>();
+            MeshRenderer mr = noteObject.GetComponent<MeshRenderer>();
             mr.material.color = noteColors[i];
         }
     }
@@ -132,8 +132,14 @@ public class GuitarTracker : MonoBehaviour {
 
         if (inRange) {
             int note = Mathf.FloorToInt(rangePerc * numberNotes);
-
-            VisualLog.Write("Note: " + note);
+            
+            if(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) >= 0.7f) {
+                VisualLog.Write("Playing note: " + note);
+            } else {
+                VisualLog.Write("Hovering note: " + note);
+            }
+        } else {
+            VisualLog.Write("No note");
         }
     }
 
