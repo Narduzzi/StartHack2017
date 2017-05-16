@@ -9,9 +9,31 @@ using UnityEngine;
 /// <summary>
 /// Moves the guitar based on an anchor.
 /// </summary>
+/// \author Robin Weiskopf
 public class GuitarTracker : MonoBehaviour {
 
     public MeshRenderer testRenderer;
+
+    [SerializeField]
+    private int numberNotes = 3;
+
+    [SerializeField]
+    private Color[] noteColors;
+
+    /// <summary>
+    /// Returns the number of notes the instrument has.
+    /// </summary>
+    public int NumberNotes {
+        get {
+            return numberNotes;
+        }
+    }
+
+    /// <summary>
+    /// Empty containing the notes objects as direct children.
+    /// </summary>
+    [SerializeField]
+    private GameObject notesContainer;
 
     [SerializeField]
     private InstrumentManager instruManager;
@@ -47,9 +69,18 @@ public class GuitarTracker : MonoBehaviour {
     /// </summary>
     void Start() {
         CheckComponents();
+        InitializeNotes();
 
         initialRotation = this.transform.localRotation;
         initialPosition = this.transform.localPosition;
+    }
+
+    private void InitializeNotes() {
+        for (int i= 0; i<noteColors.Length; i++) {
+            GameObject noteObject = notesContainer.transform.GetChild(i).gameObject;
+            Renderer mr = noteObject.GetComponent<Renderer>();
+            mr.material.color = noteColors[i];
+        }
     }
 
     /// <summary>
@@ -83,9 +114,11 @@ public class GuitarTracker : MonoBehaviour {
     /// a note is played.
     /// </summary>
     private void CheckForNote() {
+        // Update inRange and calculate some useful values
         Vector3 currentPosition = this.transform.position;
         float distance = (directionalAnchor.position - currentPosition).magnitude;
         bool nowInRange = Utils.InRange(distance, noteRangeStart * guitarLength, noteRangeEnd * guitarLength);
+        float rangePerc = (distance / guitarLength - noteRangeStart) / (noteRangeEnd - noteRangeStart);
 
         if (!inRange && nowInRange) {
             Debug.Log("In range !");
@@ -96,6 +129,12 @@ public class GuitarTracker : MonoBehaviour {
             testRenderer.material.color = Color.red;
             inRange = false;
         }
+
+        if (inRange) {
+            int note = Mathf.FloorToInt(rangePerc * numberNotes);
+
+            VisualLog.Write("Note: " + note);
+        }
     }
 
     private void CheckComponents() {
@@ -103,6 +142,14 @@ public class GuitarTracker : MonoBehaviour {
         //if (instruManager == null) throw new MissingReferenceException("No instrument manager defined");
         if (anchor == null) throw new MissingReferenceException("No tracking hand defined");
         if (directionalAnchor == null) throw new MissingReferenceException("No direction hand defined");
+        if (notesContainer == null) throw new MissingReferenceException("Notes container not defined");
+
+        // Check notes
+        if (numberNotes <= 0) throw new System.Exception("There must be at least 1 note");
+        if (numberNotes != notesContainer.transform.childCount)
+            throw new System.Exception("The number of notes in notesContainer is not correct");
+        if (noteColors.Length > 1 && numberNotes != noteColors.Length)
+            throw new System.Exception("The number of colors is not correct");
 
         // Check note range start and end
         if (!Utils.InRange(noteRangeStart, 0.0f, 1.0f))
