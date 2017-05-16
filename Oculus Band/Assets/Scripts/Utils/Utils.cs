@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+/// <summary>
+/// Namespace that collects all the utilities for the Oculus Band project.
+/// </summary>
 namespace OBUtils {
     public class Utils {
 
