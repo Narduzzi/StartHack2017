@@ -23,13 +23,13 @@ public class KeyPressedAnimator : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		if(col.gameObject.transform.parent != this.transform.parent){
+		if(col.gameObject.tag == "bone3"){
 			PressKey ();
 		}
 	}
 
 	void OnTriggerExit(Collider col){
-		if (col.gameObject.transform.parent != this.transform.parent) {
+		if (col.gameObject.tag == "bone3") {
 			ReleaseKey ();
 		}
 	}
@@ -51,8 +51,8 @@ public class KeyPressedAnimator : MonoBehaviour {
 	}
 
 	void AnimateDown(){
-		this.GetComponent<Collider> ().enabled = false;
-		StartCoroutine (RestoreCollider (restoreTime));
+		//this.GetComponent<Collider> ().enabled = false;
+		//StartCoroutine (RestoreCollider (restoreTime));
 		this.transform.localPosition = downPosition;
 		this.transform.rotation = Quaternion.Euler (downRotation);
 	}
