@@ -13,10 +13,38 @@ using UnityEngine;
 public class GuitarTracker : MonoBehaviour {
 
     [SerializeField]
+    private InstrumentManager instruManager;
+
+    [Header("Anchor settings")]
+
+    [SerializeField]
+    private Transform anchor;
+
+    [SerializeField]
+    private Vector3 anchorOffset = new Vector3(0.0f, 0.0f, 0.0f);
+
+    [SerializeField]
+    private Transform directionalAnchor;
+
+    [Header("Note Settings")]
+
+    [SerializeField]
     private int numberNotes = 5;
 
     [SerializeField]
     private Color[] noteColors;
+
+    [Tooltip("The length of the guitar considering the scale parameter.")]
+    [SerializeField]
+    private float guitarLength = 1.0f;
+
+    [Range(0.0f, 1.0f)]
+    [SerializeField]
+    private float noteRangeStart = 0.0f;
+
+    [Range(0.0f, 1.0f)]
+    [SerializeField]
+    private float noteRangeEnd = 1.0f;
 
     /// <summary>
     /// Returns the number of notes the instrument has.
@@ -33,29 +61,7 @@ public class GuitarTracker : MonoBehaviour {
     [SerializeField]
     private GameObject notesContainer;
 
-    [SerializeField]
-    private InstrumentManager instruManager;
-
-    [SerializeField]
-    private Transform anchor;
-
-    [SerializeField]
-    private Vector3 anchorOffset = new Vector3(0.0f, 0.0f, 0.0f);
-
-    [Tooltip("The length of the guitar considering the scale parameter.")]
-    [SerializeField]
-    private float guitarLength = 1.0f;
-
-    [Range(0.0f, 1.0f)]
-    [SerializeField]
-    private float noteRangeStart = 0.0f;
-
-    [Range(0.0f, 1.0f)]
-    [SerializeField]
-    private float noteRangeEnd = 1.0f;
-
-    [SerializeField]
-    private Transform directionalAnchor;
+    [Header("Strum settings")]
 
     [SerializeField]
     private float strumMinSpeed = 0.5f;
@@ -70,11 +76,13 @@ public class GuitarTracker : MonoBehaviour {
     private Quaternion initialRotation;
     private Vector3 initialPosition;
 
-    private OVRHapticsClip strumHaptics;
+    private OVRHapticsClip strumHapticsClip;
 
     // Guitar status
     private bool holdingNote = false;
     private int currentNote = -1;
+
+    #region MONOBEHAVIOUR
 
     /// <summary>
     /// Use this for initialization
@@ -86,7 +94,7 @@ public class GuitarTracker : MonoBehaviour {
         initialRotation = this.transform.localRotation;
         initialPosition = this.transform.localPosition;
 
-        strumHaptics = new OVRHapticsClip(strumSound);
+        strumHapticsClip = new OVRHapticsClip(strumSound);
     }
 
     
@@ -98,31 +106,8 @@ public class GuitarTracker : MonoBehaviour {
         CheckForNote();
     }
 
+    #endregion MONOBEHAVIOUR
 
-    public void OnStrumEnter(Collider other) {
-        if (strokeObject == null && other.gameObject.layer == LayerMask.NameToLayer("Player")) {
-            if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.9f
-                && OVRInput.Get(OVRInput.Button.Two)) {
-
-                float recordedSpeed = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch).magnitude;
-                if (recordedSpeed > strumMinSpeed) {
-                    OVRHaptics.RightChannel.Preempt(strumHaptics);
-                    strokeObject = other.gameObject;
-
-                    if (holdingNote) {
-                        instruManager.PressKey(currentNote);
-                    }
-                }
-            }
-        }
-    }
-
-
-    public void OnStrumExit(Collider other) {
-        if (strokeObject != null && other.gameObject == strokeObject) {
-            strokeObject = null;
-        }
-    }
 
 
     private void InitializeNotes() {
@@ -185,7 +170,7 @@ public class GuitarTracker : MonoBehaviour {
 
     private void CheckComponents() {
         // Check parameters not null
-        //if (instruManager == null) throw new MissingReferenceException("No instrument manager defined");
+        if (instruManager == null) throw new MissingReferenceException("No instrument manager defined");
         if (strumSound == null) throw new MissingReferenceException("No audio sound for haptic defined");
         if (anchor == null) throw new MissingReferenceException("No tracking hand defined");
         if (directionalAnchor == null) throw new MissingReferenceException("No direction hand defined");
@@ -207,5 +192,34 @@ public class GuitarTracker : MonoBehaviour {
             Utils.Swap(ref noteRangeStart, ref noteRangeEnd);
 
     }
-    
+
+    #region STRUMMING
+
+    public void OnStrumEnter(Collider other) {
+        if (strokeObject == null && other.gameObject.layer == LayerMask.NameToLayer("Player")) {
+            if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.9f
+                && OVRInput.Get(OVRInput.Button.Two)) {
+
+                float recordedSpeed = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch).magnitude;
+                if (recordedSpeed > strumMinSpeed) {
+                    OVRHaptics.RightChannel.Preempt(strumHapticsClip);
+                    strokeObject = other.gameObject;
+
+                    if (holdingNote) {
+                        instruManager.PressKey(currentNote);
+                    }
+                }
+            }
+        }
+    }
+
+
+    public void OnStrumExit(Collider other) {
+        if (strokeObject != null && other.gameObject == strokeObject) {
+            strokeObject = null;
+        }
+    }
+
+    #endregion STRUMMING
+
 }

@@ -11,11 +11,12 @@ public class StrumListener : MonoBehaviour {
         if (guitarTracker == null) throw new MissingReferenceException("No guitar tracker reference defined");
     }
 
-    void OnTriggerEnter(Collider other) {
+    public void OnTriggerEnter(Collider other) {
+        Debug.Log("Entered");
         guitarTracker.OnStrumEnter(other);
     }
 
-    void OnTriggerExit(Collider other) {
+    public void OnTriggerExit(Collider other) {
         guitarTracker.OnStrumExit(other);
     }
 
