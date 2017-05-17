@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class KeyPressedAnimator : MonoBehaviour {
 	bool keyPressed = false;
-	public float restoreTime = 0.0001f;
+	public float restoreTime;
 	public Vector3 downPosition;
 	public Vector3 downRotation;
 
 	private Vector3 originalPosition;
 	private Quaternion originalRotation;
+	private float releaseNoteAfter = 1.0f;
+	private float counter = 0.0f;
 	// Use this for initialization
 	void Start () {
 		this.originalPosition = this.transform.localPosition;
@@ -19,7 +21,11 @@ public class KeyPressedAnimator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		counter = counter + Time.deltaTime;
+		if (keyPressed && counter > releaseNoteAfter) {
+			ReleaseKey ();
+			counter = 0.0f;
+		}
 	}
 
 	void OnTriggerEnter(Collider col){
@@ -34,9 +40,28 @@ public class KeyPressedAnimator : MonoBehaviour {
 		}
 	}
 
+	void OnCollisionEnter(Collision col){
+		if (col.gameObject.tag == "bone3") {
+			PressKey ();
+		}
+	}
+
+	void OnCollisionStay(Collision col){
+		if (col.gameObject.tag == "bone3") {
+			counter = 0.0f;
+			Debug.Log ("Pressed");
+		}
+	}
+
+
+	void OnCollisionExit(Collision col){
+		if (col.gameObject.tag == "bone3") {
+			ReleaseKey ();
+		}
+	}
+
 	void PressKey(){
 		if (keyPressed == false) {
-			Debug.Log ("keypressed");
 			keyPressed = true;
 			AnimateDown ();
 		}
@@ -44,15 +69,14 @@ public class KeyPressedAnimator : MonoBehaviour {
 
 	void ReleaseKey(){
 		if (keyPressed) {
-			Debug.Log ("keyreleased");
 			keyPressed = false;
 			AnimateUp ();
 		}
 	}
 
 	void AnimateDown(){
-		//this.GetComponent<Collider> ().enabled = false;
-		//StartCoroutine (RestoreCollider (restoreTime));
+		this.GetComponent<Collider> ().enabled = false;
+		StartCoroutine (RestoreCollider (restoreTime));
 		this.transform.localPosition = downPosition;
 		this.transform.rotation = Quaternion.Euler (downRotation);
 	}
