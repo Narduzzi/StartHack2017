@@ -5120,6 +5120,16 @@ Prefab:
       propertyPath: listKeys.Array.data[0]
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114722018974300428, guid: 0384e98b503e03944ad666ce4949d2a4,
+        type: 2}
+      propertyPath: instruManager
+      value: 
+      objectReference: {fileID: 489397751}
+    - target: {fileID: 114722018974300428, guid: 0384e98b503e03944ad666ce4949d2a4,
+        type: 2}
+      propertyPath: text
+      value: 
+      objectReference: {fileID: 1765821110}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0384e98b503e03944ad666ce4949d2a4, type: 2}
   m_IsPrefabParent: 0
