@@ -12,10 +12,8 @@ using UnityEngine;
 /// \author Robin Weiskopf
 public class GuitarTracker : MonoBehaviour {
 
-    public MeshRenderer testRenderer;
-
     [SerializeField]
-    private int numberNotes = 3;
+    private int numberNotes = 5;
 
     [SerializeField]
     private Color[] noteColors;
@@ -59,10 +57,20 @@ public class GuitarTracker : MonoBehaviour {
     [SerializeField]
     private Transform directionalAnchor;
 
+    [SerializeField]
+    private float strumMinSpeed = 0.5f;
+
+    [SerializeField]
+    private AudioClip strumSound;
+
     private bool inRange = false;
+
+    private GameObject strokeObject;
 
     private Quaternion initialRotation;
     private Vector3 initialPosition;
+
+    private OVRHapticsClip strumHaptics;
 
     /// <summary>
     /// Use this for initialization
@@ -73,27 +81,52 @@ public class GuitarTracker : MonoBehaviour {
 
         initialRotation = this.transform.localRotation;
         initialPosition = this.transform.localPosition;
+
+        strumHaptics = new OVRHapticsClip(strumSound);
     }
 
+    
+    /// <summary>
+    /// Update is called once per frame
+    /// </summary>
+    void Update() {
+        UpdatePosition();
+        CheckForNote();
+    }
+
+
+    void OnTriggerEnter(Collider other) {
+        if (strokeObject == null && other.gameObject.layer == LayerMask.NameToLayer("Player")) {
+            if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.9f
+                && OVRInput.Get(OVRInput.Button.Two)) {
+
+                float recordedSpeed = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch).magnitude;
+
+                if (recordedSpeed > strumMinSpeed) {
+                    OVRHaptics.RightChannel.Preempt(strumHaptics);
+                    strokeObject = other.gameObject;
+                }
+            }
+        }
+    }
+
+
+    void OnTriggerExit(Collider other) {
+        if (strokeObject != null && other.gameObject == strokeObject) {
+            strokeObject = null;
+        }
+    }
+
+
     private void InitializeNotes() {
-        for (int i= 0; i<noteColors.Length; i++) {
+        for (int i = 0; i < noteColors.Length; i++) {
             GameObject noteObject = notesContainer.transform.GetChild(i).gameObject;
             MeshRenderer mr = noteObject.GetComponent<MeshRenderer>();
             mr.material.color = noteColors[i];
         }
     }
 
-    /// <summary>
-    /// Update is called once per frame
-    /// </summary>
-    void Update() {
-
-        UpdatePosition();
-
-        CheckForNote();
-
-    }
-
+    
     /// <summary>
     /// Updated the guitar's position based on the anchor's position.
     /// </summary>
@@ -121,12 +154,8 @@ public class GuitarTracker : MonoBehaviour {
         float rangePerc = (distance / guitarLength - noteRangeStart) / (noteRangeEnd - noteRangeStart);
 
         if (!inRange && nowInRange) {
-            Debug.Log("In range !");
-            testRenderer.material.color = Color.green;
             inRange = true;
         } else if (inRange && !nowInRange) {
-            Debug.Log("Out of range");
-            testRenderer.material.color = Color.red;
             inRange = false;
         }
 
@@ -146,6 +175,7 @@ public class GuitarTracker : MonoBehaviour {
     private void CheckComponents() {
         // Check parameters not null
         //if (instruManager == null) throw new MissingReferenceException("No instrument manager defined");
+        if (strumSound == null) throw new MissingReferenceException("No audio sound for haptic defined");
         if (anchor == null) throw new MissingReferenceException("No tracking hand defined");
         if (directionalAnchor == null) throw new MissingReferenceException("No direction hand defined");
         if (notesContainer == null) throw new MissingReferenceException("Notes container not defined");
@@ -166,5 +196,5 @@ public class GuitarTracker : MonoBehaviour {
             Utils.Swap(ref noteRangeStart, ref noteRangeEnd);
 
     }
-
+    
 }
