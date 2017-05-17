@@ -72,6 +72,10 @@ public class GuitarTracker : MonoBehaviour {
 
     private OVRHapticsClip strumHaptics;
 
+    // Guitar status
+    private bool holdingNote = false;
+    private int currentNote = -1;
+
     /// <summary>
     /// Use this for initialization
     /// </summary>
@@ -95,23 +99,26 @@ public class GuitarTracker : MonoBehaviour {
     }
 
 
-    void OnTriggerEnter(Collider other) {
+    public void OnStrumEnter(Collider other) {
         if (strokeObject == null && other.gameObject.layer == LayerMask.NameToLayer("Player")) {
             if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.9f
                 && OVRInput.Get(OVRInput.Button.Two)) {
 
                 float recordedSpeed = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch).magnitude;
-
                 if (recordedSpeed > strumMinSpeed) {
                     OVRHaptics.RightChannel.Preempt(strumHaptics);
                     strokeObject = other.gameObject;
+
+                    if (holdingNote) {
+                        instruManager.PressKey(currentNote);
+                    }
                 }
             }
         }
     }
 
 
-    void OnTriggerExit(Collider other) {
+    public void OnStrumExit(Collider other) {
         if (strokeObject != null && other.gameObject == strokeObject) {
             strokeObject = null;
         }
@@ -160,14 +167,18 @@ public class GuitarTracker : MonoBehaviour {
         }
 
         if (inRange) {
-            int note = Mathf.FloorToInt(rangePerc * numberNotes);
-            
-            if(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) >= 0.7f) {
-                VisualLog.Write("Playing note: " + note);
+            currentNote = Mathf.FloorToInt(rangePerc * numberNotes);
+            holdingNote = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) >= 0.7f;
+
+            if (holdingNote) {
+                VisualLog.Write("Playing note: " + currentNote);
             } else {
-                VisualLog.Write("Hovering note: " + note);
+                VisualLog.Write("Hovering note: " + currentNote);
             }
         } else {
+            currentNote = -1;
+            holdingNote = false;
+
             VisualLog.Write("No note");
         }
     }
