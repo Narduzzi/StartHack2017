@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class InstrumentManager : MonoBehaviour {
 
-    public int keys = 3;
+    public int keys = -1;
     private bool[] pressedKeys;
 
     private void Start()
     {
+		if (keys < 1) {
+			Debug.LogError ("Please assign a positive number of keys");
+		}
         pressedKeys = new bool[keys];
     }
 

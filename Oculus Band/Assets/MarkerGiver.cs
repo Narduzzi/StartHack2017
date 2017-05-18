@@ -6,8 +6,8 @@ public class MarkerGiver : MonoBehaviour {
 
 	List<GameObject> listBones3 = new List<GameObject>();
 	// Use this for initialization
-	void Start () {
-		listBones3 = updateListBone3 ();
+	void Awake () {
+		AssignTagsToBones3 ();
 	}
 	
 	// Update is called once per frame
@@ -15,7 +15,15 @@ public class MarkerGiver : MonoBehaviour {
 		
 	}
 
-	List<GameObject> updateListBone3(){
-		return null;
+	void AssignTagsToBones3(){
+		GameObject[] all_go = FindObjectsOfType<GameObject> ();
+		foreach(GameObject go in all_go){
+			if (go.name == "bone3") {
+				if (go.tag != "bone3") {
+					go.tag = "bone3";
+					print ("Assigned tag!");
+				}
+			}
+		}
 	}
 }
