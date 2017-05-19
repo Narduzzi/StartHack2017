@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a699fb866d271f8459748b396de67688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfchannels: 5
+  numberOfchannels: 3
   spacing: 0.02
   originalChannel: {fileID: 306626503}
 --- !u!114 &2796485
@@ -137,8 +137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 37858970}
-  songName: LO_PIANO_TRACK
-  listKeys: 64000000730000006b000000610000006c000000
+  songName: LO_GUITAR_TRACK
+  listKeys: 640000007300000061000000
 --- !u!4 &2796486
 Transform:
   m_ObjectHideFlags: 0
@@ -397,7 +397,7 @@ Prefab:
     - target: {fileID: 114545712134480272, guid: 22f19136ee1d1ad4db4764e2d789b8e0,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114074046703485968, guid: 22f19136ee1d1ad4db4764e2d789b8e0,
         type: 2}
@@ -449,6 +449,10 @@ Prefab:
       value: 
       objectReference: {fileID: 4900000, guid: b42d1dee41bb9f343b3368f7c442beec, type: 3}
     - target: {fileID: 1943818242339736, guid: 22f19136ee1d1ad4db4764e2d789b8e0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1234855901673008, guid: 22f19136ee1d1ad4db4764e2d789b8e0, type: 2}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

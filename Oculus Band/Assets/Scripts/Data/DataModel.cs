@@ -43,7 +43,12 @@ namespace XMLDataModel {
 
         public static Song Load(string fpath) {
             TextAsset songAsset = Resources.Load(fpath) as TextAsset;
-            return Load(songAsset);
+
+			var serializer = new XmlSerializer(typeof(Song));
+			var stream = new FileStream(fpath, FileMode.Open);
+			Song theSong = serializer.Deserialize(stream) as Song;
+			//return Load(songAsset);
+			return theSong; 
         }
 
         public static Song Load(TextAsset songAsset) {
@@ -51,6 +56,9 @@ namespace XMLDataModel {
                 throw new System.Exception("Song does not exist!");
 
             var serializer = new XmlSerializer(typeof(Song));
+
+			//New code
+
             using (Stream ms = new MemoryStream(songAsset.bytes)) {
                 var stream = new StreamReader(ms, System.Text.Encoding.UTF8, true);
                 return serializer.Deserialize(stream) as Song;
