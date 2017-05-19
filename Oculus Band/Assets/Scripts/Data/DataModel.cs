@@ -41,12 +41,6 @@ namespace XMLDataModel {
             return Load(fpath);
         }
 
-
-        public void SaveSong() {
-            var fpath = GetAssetFromSongName(name);
-            Save(fpath);
-        }
-
         public static Song Load(string fpath) {
             TextAsset songAsset = Resources.Load(fpath) as TextAsset;
             return Load(songAsset);
@@ -64,13 +58,28 @@ namespace XMLDataModel {
         }
 
         public void Save() {
+            //var fpath = GetAssetFromSongName(name);
+            string filepath = Path.Combine(Application.dataPath, "Resources/Tracks/" + name + ".xml");
+            Save(filepath);
+        }
+
+        public void Save(string fpath) {
+            /*
             TextAsset songAsset = GetAssetFromSongName(name);
 			if (songAsset == null) {
 				Debug.LogError ("The asset \"" + name + "\" does not exist");
 			}
-            Save(songAsset);
+            */
+
+            var serializer = new XmlSerializer(typeof(Song));
+            var stream = new FileStream(fpath, FileMode.Create);
+            serializer.Serialize(stream, this);
+            stream.Close();
+
+            Debug.Log("Saved file to : " + Path.GetFullPath(fpath));
         }
 
+        /*
         public void Save(TextAsset songAsset) {
             if (songAsset == null)
                 throw new System.Exception("Song does not exist!");
@@ -78,13 +87,18 @@ namespace XMLDataModel {
             var serializer = new XmlSerializer(typeof(Song));
 			try{
 	            using (Stream ms = new MemoryStream(songAsset.bytes)) {
+                    if (!ms.CanWrite) {
+                        Debug.LogError("Can not write to stream");
+                    }
+
 	                var stream = new StreamWriter(ms, System.Text.Encoding.UTF8);
 	                serializer.Serialize(stream, this);
 	            }
-			}catch(Exception e){
-				Debug.LogError ("Could not save song. Error in MemoryStream");
+			} catch(Exception e) {
+				Debug.LogError ("Exception occured: " + e.ToString());
 			}
         }
+        */
 
     }
 
