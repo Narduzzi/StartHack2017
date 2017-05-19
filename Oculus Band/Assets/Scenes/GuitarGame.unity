@@ -397,12 +397,12 @@ Prefab:
     - target: {fileID: 114545712134480272, guid: 22f19136ee1d1ad4db4764e2d789b8e0,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114074046703485968, guid: 22f19136ee1d1ad4db4764e2d789b8e0,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1971577859609016, guid: 22f19136ee1d1ad4db4764e2d789b8e0, type: 2}
       propertyPath: m_IsActive
@@ -437,6 +437,20 @@ Prefab:
         type: 2}
       propertyPath: recording_mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 82045179018536434, guid: 22f19136ee1d1ad4db4764e2d789b8e0,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114545712134480272, guid: 22f19136ee1d1ad4db4764e2d789b8e0,
+        type: 2}
+      propertyPath: songAsset
+      value: 
+      objectReference: {fileID: 4900000, guid: b42d1dee41bb9f343b3368f7c442beec, type: 3}
+    - target: {fileID: 1943818242339736, guid: 22f19136ee1d1ad4db4764e2d789b8e0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22f19136ee1d1ad4db4764e2d789b8e0, type: 2}

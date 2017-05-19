@@ -11,5 +11,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Concert.unity
   - enabled: 0
     path: Assets/Scenes/End.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/OvrAvatar/Samples/Controllers/Controllers.unity
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
