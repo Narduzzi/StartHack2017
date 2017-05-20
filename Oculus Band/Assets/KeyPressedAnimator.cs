@@ -10,8 +10,12 @@ public class KeyPressedAnimator : MonoBehaviour {
 
 	private Vector3 originalPosition;
 	private Quaternion originalRotation;
-	private float releaseNoteAfter = 1.0f;
+	private float releaseNoteAfter = 0.4f;
 	private float counter = 0.0f;
+
+	public InstrumentManager instrumentManager;
+	public int type = -1;
+
 	// Use this for initialization
 	void Start () {
 		this.originalPosition = this.transform.localPosition;
@@ -63,6 +67,7 @@ public class KeyPressedAnimator : MonoBehaviour {
 	void PressKey(){
 		if (keyPressed == false) {
 			keyPressed = true;
+			instrumentManager.PressKey(type);
 			AnimateDown ();
 		}
 	}
@@ -70,6 +75,7 @@ public class KeyPressedAnimator : MonoBehaviour {
 	void ReleaseKey(){
 		if (keyPressed) {
 			keyPressed = false;
+			instrumentManager.UnpressKey(type);
 			AnimateUp ();
 		}
 	}

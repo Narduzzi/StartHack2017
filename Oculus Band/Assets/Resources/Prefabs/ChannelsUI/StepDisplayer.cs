@@ -38,9 +38,11 @@ public class StepDisplayer : MonoBehaviour {
 		Transform StepReader = this.transform.parent;
 
 		Vector3 parent_scale = original_parent.transform.localScale;
+		Vector3 parent_rotation = original_parent.transform.localRotation.eulerAngles;
 
 
-		newstep.transform.localScale = new Vector3 (2.0f/parent_scale.x, 0.1f/parent_scale.y, 2.0f/parent_scale.z);
+		newstep.transform.localScale = new Vector3 (2.0f*parent_scale.x/100.0f, 0.1f*parent_scale.y/100.0f, 2.0f*parent_scale.z/100.0f);
+		newstep.transform.localRotation = Quaternion.Euler (new Vector3 (parent_rotation.x + 90, parent_rotation.y, parent_rotation.z));
 		newstep.transform.parent = this.transform;
 		newstep.transform.localPosition = new Vector3 (0.0f, offset, 0.0f);
 		//newstep.transform.lossyScale = this.transform.lossyScale;

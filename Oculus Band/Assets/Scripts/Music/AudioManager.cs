@@ -5,6 +5,7 @@ public class AudioManager : MonoBehaviour {
 	
 	public AudioSource drums_source;
 	public AudioSource piano_source;
+	public AudioSource guitar_source;
 	public AudioSource voice_source;
 	public AudioSource error_source;
 	public bool PlayOnAwake;
@@ -70,6 +71,8 @@ public class AudioManager : MonoBehaviour {
 			return 2;
 		} else if (instrument == "Piano") {
 			return 3;
+		} else if (instrument == "Guitar") {
+			return 4;
 		} else{
 			return 0;
 		}
@@ -80,6 +83,8 @@ public class AudioManager : MonoBehaviour {
 		} else if (instrument == "Drums") {
 			return drums_source;
 		} else if (instrument == "Piano") {
+			return piano_source;
+		} else if (instrument == "Guitar") {
 			return piano_source;
 		} else
 			return null;
