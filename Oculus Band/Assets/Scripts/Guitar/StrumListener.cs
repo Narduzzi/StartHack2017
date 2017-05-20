@@ -12,7 +12,6 @@ public class StrumListener : MonoBehaviour {
     }
 
     public void OnTriggerEnter(Collider other) {
-        Debug.Log("Entered");
         guitarTracker.OnStrumEnter(other);
     }
 
