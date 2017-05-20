@@ -48,7 +48,7 @@ public class GameInitializer : MonoBehaviour {
 			StartCoroutine(Sync(GetDelay()));
 			if (players == RequiredPlayers && play) {
 				audioManager.play = true;
-				gameManager.play = true;
+				//gameManager.play = true;
 				stepReader.play = true;
 			}
 		}

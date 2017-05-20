@@ -9,7 +9,7 @@ public class SetupConcertScene : MonoBehaviour {
 	public Transform DrumsPlayerTransform;
 	public Transform GuitarPlayerTransform;
 	public GameObject CameraPlayer;
-
+	public AudioManager audioManager;
 	private NetworkParameters parameters;
 	private string instrument;
 	private string headset;
@@ -40,6 +40,9 @@ public class SetupConcertScene : MonoBehaviour {
 		if (CameraPlayer == null) {
 			Debug.LogError ("CameraPlayer is null");
 		}
+		if (audioManager == null) {
+			Debug.LogError ("AudioManager is null");
+		}
 
 		instrument = parameters.getInstrument ();
 		headset = parameters.getHeadset ();
@@ -50,6 +53,7 @@ public class SetupConcertScene : MonoBehaviour {
 
 
 	void Setup(string instrument, string headset, string hands){
+		audioManager.myInstrument = instrument;
 		if (instrument == "Piano") {
 			SetupPlayerLocation (PianoPlayerTransform);
 		} else if (instrument == "Guitar") {

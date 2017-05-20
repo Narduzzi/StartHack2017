@@ -1,18 +1,26 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : NetworkBehaviour {
 
+	[SyncVar(hook = "DrumsVar")]
+	private bool drums_enabled = true;
+	[SyncVar(hook = "PianoVar")]
+	private bool piano_enabled = true;
+	[SyncVar(hook = "GuitarVar")]
+	private bool guitar_enabled = true;
 
 	public AudioSource drums_source;
 	public AudioSource piano_source;
 	public AudioSource guitar_source;
 	public AudioSource voice_source;
 	public AudioSource error_source;
+	public string myInstrument;
 	public bool PlayOnAwake;
 	public float delay;
 	public bool waitedSec = true;
-	private bool[] failedInstruments = new bool[4];
+	private bool[] failedInstruments = new bool[5];
 
 	public bool play = false;
 	private bool launched = false;
@@ -40,7 +48,20 @@ public class AudioManager : MonoBehaviour {
 		}
 	}
 
-	public void Failed(string instrument){
+	[Command]
+	public void CmdFailedDistant(string instrument){
+		if (instrument == "Guitar") {
+			guitar_enabled = false;
+		}
+		if (instrument == "Piano") {
+			piano_enabled = false;
+		}
+		if (instrument == "Drums") {
+			drums_enabled = false;
+		}
+	}
+
+	public void FailedLocal(string instrument){
 		if (failedInstruments [getNumberInstrument (instrument)] == false) {
 			failedInstruments [getNumberInstrument (instrument)] = true;
 			error_source.Play ();
@@ -49,16 +70,85 @@ public class AudioManager : MonoBehaviour {
 			Debug.Log ("Set volume of " + instrument + " to 0");
 		}
 	}
+
+	public void FailedByDistantInstrument(string instrument){
+		if (instrument == myInstrument) {
+			return;
+		}
+		if (failedInstruments [getNumberInstrument (instrument)] == false) {
+			failedInstruments [getNumberInstrument (instrument)] = true;
+
+			AudioSource source = GetAudioSource (instrument);
+			source.volume = 0;
+			Debug.Log ("Set volume of " + instrument + " to 0");
+		}
+	}
+
+	public void Failed(string instrument){
+		CmdFailedDistant (instrument);
+		FailedLocal (instrument);
+	}
+
 	public void Success(string instrument){
+		CmdSuccessDistant (instrument);
+		SuccessLocal (instrument);
+	}
+
+	[Command]
+	public void CmdSuccessDistant(string instrument){
+		if (instrument == "Guitar") {
+			guitar_enabled = true;
+		}
+		if (instrument == "Piano") {
+			piano_enabled = true;
+		}
+		if (instrument == "Drums") {
+			drums_enabled = true;
+		}
+	}
+
+	public void SuccessLocal(string instrument){
+		failedInstruments [getNumberInstrument (instrument)] = false;
+		StartCoroutine("RestoreSound",instrument);
+	}
+
+	public void SuccessByDistanceInstrument(string instrument){
+		if (instrument == myInstrument) {
+			return;
+		}
 		failedInstruments [getNumberInstrument (instrument)] = false;
 		StartCoroutine("RestoreSound",instrument);
 	}
 
 	IEnumerator RestoreSound (string instrument){
 		waitedSec = true;
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.3f);
 		if (waitedSec) {
 			SetLevelMax (instrument);
+		}
+	}
+
+	private void GuitarVar(bool enabled){
+		if (enabled) {
+			SuccessByDistanceInstrument ("Guitar");
+		} else {
+			FailedByDistantInstrument ("Guitar");
+		}
+	}
+
+	private void PianoVar(bool enabled){
+		if (enabled) {
+			SuccessByDistanceInstrument ("Piano");
+		} else {
+			FailedByDistantInstrument ("Piano");
+		}
+	}
+
+	private void DrumsVar(bool enabled){
+		if (enabled) {
+			SuccessByDistanceInstrument ("Drums");
+		} else {
+			FailedByDistantInstrument ("Drums");
 		}
 	}
 

@@ -1035,6 +1035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   play: 0
+  WaitForSyncDelay: 0.05
 --- !u!1001 &357449431
 Prefab:
   m_ObjectHideFlags: 0
@@ -4489,6 +4490,7 @@ MonoBehaviour:
   DrumsPlayerTransform: {fileID: 1116028049}
   GuitarPlayerTransform: {fileID: 981974907}
   CameraPlayer: {fileID: 1889767415}
+  audioManager: {fileID: 2016274738}
 --- !u!4 &1575537083
 Transform:
   m_ObjectHideFlags: 0
@@ -4514,7 +4516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a6aa5b946937243a77e041273c17b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioManager: {fileID: 2016274735}
+  audioManager: {fileID: 2016274738}
   gameLogic: {fileID: 1717813737}
   RequiredPlayers: 2
   syncManager: {fileID: 348031511}
@@ -6214,6 +6216,47 @@ GameObject:
   m_PrefabParentObject: {fileID: 1269836766899728, guid: 13b1380935715b44db614de85a576cae,
     type: 2}
   m_PrefabInternal: {fileID: 1889767414}
+--- !u!1 &1926844763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1926844765}
+  - component: {fileID: 1926844764}
+  m_Layer: 0
+  m_Name: InstrumentTester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1926844764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1926844763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92aa030233f841544b608ac58cad6c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioManager: {fileID: 2016274738}
+--- !u!4 &1926844765
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1926844763}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.527, y: 3.5235083, z: -8.813952}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1928506080 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100990, guid: 2517087cb70fd874686178155e4c5406, type: 3}
@@ -6400,15 +6443,107 @@ Prefab:
       propertyPath: m_Name
       value: DrumGameLogic
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 82584261533664460, guid: 0384e98b503e03944ad666ce4949d2a4,
+        type: 2}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292408085750808, guid: 0384e98b503e03944ad666ce4949d2a4,
+        type: 2}
+      propertyPath: guitar_source
+      value: 
+      objectReference: {fileID: 2059747475}
+    - target: {fileID: 114292408085750808, guid: 0384e98b503e03944ad666ce4949d2a4,
+        type: 2}
+      propertyPath: play
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1777623711718698, guid: 0384e98b503e03944ad666ce4949d2a4, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114722018974300428, guid: 0384e98b503e03944ad666ce4949d2a4,
+        type: 2}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 2016274738}
+    m_RemovedComponents:
+    - {fileID: 114292408085750808, guid: 0384e98b503e03944ad666ce4949d2a4, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0384e98b503e03944ad666ce4949d2a4, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &2016274735 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114292408085750808, guid: 0384e98b503e03944ad666ce4949d2a4,
+--- !u!82 &2016274734 stripped
+AudioSource:
+  m_PrefabParentObject: {fileID: 82495374862749250, guid: 0384e98b503e03944ad666ce4949d2a4,
     type: 2}
   m_PrefabInternal: {fileID: 2016274733}
+--- !u!82 &2016274735 stripped
+AudioSource:
+  m_PrefabParentObject: {fileID: 82850402931607488, guid: 0384e98b503e03944ad666ce4949d2a4,
+    type: 2}
+  m_PrefabInternal: {fileID: 2016274733}
+--- !u!82 &2016274736 stripped
+AudioSource:
+  m_PrefabParentObject: {fileID: 82584261533664460, guid: 0384e98b503e03944ad666ce4949d2a4,
+    type: 2}
+  m_PrefabInternal: {fileID: 2016274733}
+--- !u!1 &2016274737 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1421862304524284, guid: 0384e98b503e03944ad666ce4949d2a4,
+    type: 2}
+  m_PrefabInternal: {fileID: 2016274733}
+--- !u!114 &2016274738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2016274737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 786107212cb4f05428fdd8db86193ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drums_source: {fileID: 2016274736}
+  piano_source: {fileID: 2016274735}
+  guitar_source: {fileID: 2059747475}
+  voice_source: {fileID: 2059747475}
+  error_source: {fileID: 2016274734}
+  myInstrument: Guitar
+  PlayOnAwake: 0
+  delay: 0.1
+  waitedSec: 0
+  play: 0
+--- !u!114 &2016274739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2016274737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 3
+    i1: 132
+    i2: 233
+    i3: 139
+    i4: 80
+    i5: 62
+    i6: 3
+    i7: 148
+    i8: 74
+    i9: 214
+    i10: 102
+    i11: 206
+    i12: 73
+    i13: 73
+    i14: 210
+    i15: 164
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &2029306398
 GameObject:
   m_ObjectHideFlags: 0
@@ -6495,6 +6630,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2029306398}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!82 &2059747475 stripped
+AudioSource:
+  m_PrefabParentObject: {fileID: 82919160793410988, guid: 0384e98b503e03944ad666ce4949d2a4,
+    type: 2}
+  m_PrefabInternal: {fileID: 2016274733}
 --- !u!4 &2059882709
 Transform:
   m_ObjectHideFlags: 0
