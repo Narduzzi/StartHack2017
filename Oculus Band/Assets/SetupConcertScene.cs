@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class SetupConcertScene : MonoBehaviour {
 
@@ -13,7 +14,7 @@ public class SetupConcertScene : MonoBehaviour {
 	private string instrument;
 	private string headset;
 	private string hands;
-
+	private bool isMultiplayer = true;
 	// Use this for initialization
 	void Awake () {
 		GameObject ParamsGO = GameObject.Find ("Params");

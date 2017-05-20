@@ -2,7 +2,8 @@
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
-	
+
+
 	public AudioSource drums_source;
 	public AudioSource piano_source;
 	public AudioSource guitar_source;
@@ -13,12 +14,16 @@ public class AudioManager : MonoBehaviour {
 	public bool waitedSec = true;
 	private bool[] failedInstruments = new bool[4];
 
+	public bool play = false;
+	private bool launched = false;
+
+
 	void Start ()   
 	{
 		drums_source.playOnAwake = PlayOnAwake;
 		piano_source.playOnAwake = PlayOnAwake;
 		voice_source.playOnAwake = PlayOnAwake;
-		StartCoroutine ("Launch");
+		//StartCoroutine ("Launch");
 	}        
 
 	IEnumerator Launch(){
@@ -26,6 +31,13 @@ public class AudioManager : MonoBehaviour {
 		drums_source.Play ();
 		piano_source.Play();
 		voice_source.Play ();
+	}
+
+	void Update(){
+		if (play && !launched) {
+			launched = true;
+			StartCoroutine ("Launch");
+		}
 	}
 
 	public void Failed(string instrument){
