@@ -12,7 +12,7 @@ public class MarkerGiver : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		AssignTagsToBones3 ();
 	}
 
 	void AssignTagsToBones3(){
