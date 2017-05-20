@@ -32,12 +32,12 @@ namespace OBNet {
         /// Defines the amount of time for which we should look for a game
         /// on the LAN.
         /// </summary>
-        public float discoveryTime = 5.0f;
+        public float discoveryTime = 1.0f;
 
         /// <summary>The list of games found.</summary>
         private List<NetworkGame> gamesFound = new List<NetworkGame>();
 
-        private Action m_callback;
+        private Action<List<NetworkGame>> m_callback;
         private string gameName;
 
         /// <summary>
@@ -68,16 +68,12 @@ namespace OBNet {
             if (base.showGUI) {
                 Debug.LogWarning("UseGUI is enabled in OBNetworkDiscovery.");
             }
-
-            if (false) {
-                //SetGameName("TestServer");
-                Initialize();
-                base.StartAsServer();
-            } else {
-                StartCoroutine(DiscoverGamesRoutine());
-            }
         }
 
+
+        /// <summary>
+        /// Overriding Initialize method for additional initialization
+        /// </summary>
         public new void Initialize() {
             base.Initialize();
 
@@ -95,6 +91,10 @@ namespace OBNet {
         }
 
 
+        /// <summary>
+        /// Change the name of the local server appearing to others.
+        /// </summary>
+        /// <param name="name">New name</param>
         public void SetGameName(string name) {
             if (base.useNetworkManager) {
                 Debug.LogError("Can't change match name when useNetworkManager is set to true.");
@@ -137,8 +137,12 @@ namespace OBNet {
 
 
 
-        public void DiscoverGames(Action callback) {
-            if (m_callback != null && callback != null) {
+        /// <summary>
+        /// Discover new games with callback
+        /// </summary>
+        /// <param name="callback">Method that takes a List&lt;NetworkGame&gt; as parameter.</param>
+        public void DiscoverGames(Action<List<NetworkGame>> callback) {
+            if (m_callback == null && callback != null) {
                 m_callback = callback;
 
                 StartCoroutine(DiscoverGamesRoutine());
@@ -189,7 +193,7 @@ namespace OBNet {
             CleanGamesFound();
 
             if (m_callback != null) {
-                m_callback.Invoke();
+                m_callback.Invoke(gamesFound);
             }
 
             yield return null;
