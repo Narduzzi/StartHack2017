@@ -54,6 +54,7 @@ public class SetupConcertScene : MonoBehaviour {
 
 	void Setup(string instrument, string headset, string hands){
 		audioManager.myInstrument = instrument;
+		this.GetComponent<GameInitializer> ().gameLogic = GameObject.Find ("GameLogicGlow" + instrument);
 		if (instrument == "Piano") {
 			SetupPlayerLocation (PianoPlayerTransform);
 		} else if (instrument == "Guitar") {
