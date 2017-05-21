@@ -39,11 +39,22 @@ public class NetworkParameters : MonoBehaviour {
 	}
 	private void setInstrument(Instrument instrument){
 		this.instrument = instrument;
-		discovery.DiscoverGames (ConnectToFirstRoom);
 
-	}
+        StartCoroutine(StartDiscovery());
+    }
 
-	private void ConnectToFirstRoom(List<NetworkGame> games){
+    private IEnumerator StartDiscovery() {
+        OVRScreenFade osf = GameObject.FindObjectOfType<OVRScreenFade>();
+        if (osf != null) {
+            Debug.Log("Fading out..");
+            yield return osf.FadeOut();
+        }
+
+        discovery.DiscoverGames(ConnectToFirstRoom);
+        yield return null;
+    }
+
+    private void ConnectToFirstRoom(List<NetworkGame> games){
 		if (games.Count == 0) {
 			manager.networkAddress = "localhost";
 			manager.networkPort = 7777;
