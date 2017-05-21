@@ -7,14 +7,14 @@ using UnityEngine.Events;
 public class LeverSelector : MonoBehaviour {
 
     public float opAngle;
-
+	public NetworkParameters parameters;
     public enum SelectedMode {
         SINGLEPLAYER,
         MULTIPLAYER
     }
 
     public SelectedMode selectedMode;
-    public UnityEvent OnModeChange;
+	public UnityEvent<SelectedMode> OnModeChange;
 
     public bool dontUpdate = false;
     private float currentAngle {
@@ -90,6 +90,7 @@ public class LeverSelector : MonoBehaviour {
         if (newMode != selectedMode) {
             Debug.Log("Mode changed!");
             selectedMode = newMode;
+			parameters.SetMode (selectedMode);
             OnModeChange.Invoke();
         }
     }
