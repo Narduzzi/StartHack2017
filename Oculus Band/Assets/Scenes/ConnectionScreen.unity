@@ -380,7 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hands: 0
   headSet: 0
-  instrument: 0
+  instrument: 2
 --- !u!4 &1849844788
 Transform:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class ChannelsManager : MonoBehaviour {
 	private List<KeyCode> keys ;
 	public GameObject originalChannel;
 	private List<GameObject> channelsGO;
+
 	// Use this for initialization
 	void Start () {
 		StepRecorder rec = this.GetComponent < StepRecorder> ();
@@ -20,7 +21,7 @@ public class ChannelsManager : MonoBehaviour {
 			keys = reader.listKeys;
 			numberOfchannels = reader.listKeys.Count;
 		}
-
+	
 		channelsGO = new List<GameObject> ();
 		createChannels (keys);
 	}
@@ -61,8 +62,51 @@ public class ChannelsManager : MonoBehaviour {
 			channel.SetActive (true);
 			channelsGO.Add (channel);
 		}
+		originalChannel.SetActive (false);
 	}
 
+	public bool CheckChannel (int index){
+		NoteEvaluator noteEvaluator = channelsGO[index].GetComponentInChildren<NoteEvaluator>();
+		if (noteEvaluator == null) {
+			Debug.LogError ("No NoteEvalutator found in children");
+		}
+		//Check if note in OK collider
+		bool valid = noteEvaluator.entered;
+		//if yes
+		if (valid) {
+			//Animate colliding gameObject
+			noteEvaluator.RestoreState ();
+			noteEvaluator.AnimateCollidingObject ();
+		
+			return true;
+
+		} else {
+			return false;
+		}
+	}
+	public void RestoreAllChannels(){
+		foreach (GameObject channel in channelsGO) {
+			NoteEvaluator noteEvaluator = channel.GetComponentInChildren<NoteEvaluator> ();
+			noteEvaluator.RestoreState ();
+		}
+	}
+
+	public bool CheckAllChannels(){
+		bool valid = true;
+		//check all ErrorColliders
+		foreach(GameObject channel in channelsGO){
+			NoteEvaluator noteEvaluator = channel.GetComponentInChildren<NoteEvaluator>();
+			if (noteEvaluator == null) {
+				Debug.LogError ("No NoteEvalutator found in children");
+			}
+
+			//if one is triggered 
+			if (noteEvaluator.failed) {
+				valid = false;
+			}
+		}
+		return valid;
+	}
 
 	public void PushNote(int index, float offset){
 		channelsGO [index].GetComponent<StepDisplayer> ().PushNote (offset);
