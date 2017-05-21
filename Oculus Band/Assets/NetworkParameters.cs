@@ -47,6 +47,7 @@ public class NetworkParameters : MonoBehaviour {
 		if (games.Count == 0) {
 			manager.networkAddress = "localhost";
 			manager.networkPort = 7777;
+			discovery.Initialize ();
 			discovery.StartAsServer ();
             manager.StartHost();
 		} else {
