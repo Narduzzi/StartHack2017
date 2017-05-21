@@ -45,7 +45,7 @@ public class GameInitializer : MonoBehaviour {
 		if (!play) {
 			int players = CountPlayers ();
 			bool play = GetPlay ();
-			StartCoroutine(Sync(GetDelay()));
+			//StartCoroutine(Sync(GetDelay()));
 			if (players == RequiredPlayers && play) {
 				audioManager.play = true;
 				gameManager.play = true;

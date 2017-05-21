@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33259454391793478}
   - component: {fileID: 136422019037678754}
   - component: {fileID: 23609898419381160}
-  - component: {fileID: 114955907186674094}
   m_Layer: 0
   m_Name: Around
   m_TagString: Untagged
@@ -41,7 +40,6 @@ GameObject:
   - component: {fileID: 33966676653176294}
   - component: {fileID: 136445907296746886}
   - component: {fileID: 23086502527816864}
-  - component: {fileID: 114154472030616764}
   m_Layer: 0
   m_Name: Inside
   m_TagString: Untagged
@@ -63,7 +61,7 @@ GameObject:
   - component: {fileID: 114056921542163024}
   m_Layer: 0
   m_Name: Step
-  m_TagString: Untagged
+  m_TagString: Step
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,38 +237,7 @@ MonoBehaviour:
   original: 1
   winColor: {r: 0, g: 1, b: 0, a: 1}
   failColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &114154472030616764
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1311690119244006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03dc609a332c26549864799f44d85920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.1
-  MaxTime: 10
-  original: 1
-  winColor: {r: 0, g: 1, b: 0, a: 1}
-  failColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &114955907186674094
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1252450997370456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03dc609a332c26549864799f44d85920, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.1
-  MaxTime: 10
-  original: 1
-  winColor: {r: 0, g: 1, b: 0, a: 1}
-  failColor: {r: 1, g: 0, b: 0, a: 1}
+  around: {fileID: 0}
 --- !u!136 &136422019037678754
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -14,7 +14,7 @@ public class LeverSelector : MonoBehaviour {
     }
 
     public SelectedMode selectedMode;
-	public UnityEvent<SelectedMode> OnModeChange;
+	public UnityEvent OnModeChange;
 
     public bool dontUpdate = false;
     private float currentAngle {

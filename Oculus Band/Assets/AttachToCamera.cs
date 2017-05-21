@@ -16,6 +16,7 @@ public class AttachToCamera : NetworkBehaviour {
 				this.transform.position = MainCamera.transform.position;
 				this.transform.rotation = MainCamera.transform.rotation;
 				this.transform.parent = MainCamera.transform;
+                created = true;
 			} else {
 				Debug.Log ("Not local player");
 			}

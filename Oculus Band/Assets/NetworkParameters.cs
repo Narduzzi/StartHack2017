@@ -48,11 +48,11 @@ public class NetworkParameters : MonoBehaviour {
 			manager.networkAddress = "localhost";
 			manager.networkPort = 7777;
 			discovery.StartAsServer ();
-			manager.StartServer ();
+            manager.StartHost();
 		} else {
 			NetworkGame first = games [0];
 			manager.networkAddress = first.addr;
-			manager.networkPort = first.port;
+			manager.networkPort = Convert.ToInt32(first.port);
 			manager.StartClient ();
 		}
 	}

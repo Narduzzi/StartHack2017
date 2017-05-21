@@ -15,7 +15,7 @@ public class NoteEvaluator : MonoBehaviour {
 	private Material RailMaterialL;
 	private Material RailMaterialR;
 
-	void Start(){
+	void Awake(){
 		if (Rails == null) {
 			Debug.LogError ("No Rails object passed");
 		} 
@@ -29,13 +29,21 @@ public class NoteEvaluator : MonoBehaviour {
 		RailL = Rails.transform.FindChild ("RailLeft").gameObject;
 		RailR = Rails.transform.FindChild ("RailRight").gameObject;
 		RailMaterialL = RailL.GetComponent<Renderer> ().material;
+        if (RailMaterialL == null) {
+            Debug.LogError("RailMaterialL is null");
+        }
 		RailMaterialR = RailR.GetComponent<Renderer> ().material;
-		RestoreRailColor ();
+        if (RailMaterialR == null) {
+            Debug.LogError("RailMaterialR is null");
+        }
+        RestoreRailColor ();
 	}
 
 	void OnTriggerEnter(Collider collider){
 		Debug.Log ("Trigger Entered");
-		colliding = collider.gameObject;
+        if (collider.gameObject.tag == "Step") {
+            colliding = collider.gameObject;
+        }
 		entered = true;
 	}
 
@@ -73,15 +81,19 @@ public class NoteEvaluator : MonoBehaviour {
 	}
 
 	public void AnimateCollidingObject(){
-		//change to green 
-		//deactivate collider
-		//(and animate destroy)
-		colliding.GetComponent<StepFaller> ().AnimateWin();
-		colliding.GetComponent<Collider> ().enabled = false;
+        //change to green 
+        //deactivate collider
+        //(and animate destroy)
+        if (colliding != null) {
+            colliding.GetComponent<StepFaller>().AnimateWin();
+            colliding.GetComponent<Collider>().enabled = false;
+        }
 
 	}
 
 	public void FailObject(){
-		colliding.GetComponent<StepFaller> ().AnimateFail();
+        if (colliding != null) {
+            colliding.GetComponent<StepFaller>().AnimateFail();
+        }
 	}
 }

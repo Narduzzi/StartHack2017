@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour {
 	public Text text;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		Song song = Song.Load (this.songAsset);
 		notes = song.notes;
 		if (notes == null || notes.Count < 2) {

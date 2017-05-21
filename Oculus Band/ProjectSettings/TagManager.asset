@@ -8,6 +8,7 @@ TagManager:
   - DrumStick
   - button
   - bone3
+  - Step
   layers:
   - Default
   - TransparentFX

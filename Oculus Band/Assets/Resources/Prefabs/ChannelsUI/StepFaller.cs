@@ -9,17 +9,20 @@ public class StepFaller : MonoBehaviour {
 	public bool original = true;
 	public Color winColor = Color.green;
 	public Color failColor = Color.red;
-	private GameObject around;
+	public GameObject around;
 	private bool finished = false;
 	// Use this for initialization
 	void Start () {
 		createdTime = 0.0f;
-		around = this.transform.FindChild ("Around").gameObject;
+		//around = this.transform.FindChild ("Around").gameObject;
 	}
 	
+ 
 	// Update is called once per frame
 	void Update () {
-
+        if(around == null) {
+            around = this.transform.FindChild("Around").gameObject;
+        }
 		float newY = this.transform.localPosition.y - speed * Time.deltaTime;
 		float newZ = this.transform.localPosition.z;
 

@@ -18,6 +18,7 @@ public class SyncManager : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKey (KeyCode.Space)) {
+            Debug.Log("PLAY!");
 			play = true;
 		}
 	}

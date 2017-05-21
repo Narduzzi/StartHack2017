@@ -10140,6 +10140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfPlayers: 0
+  discovery: {fileID: 1310437305}
+  manager: {fileID: 685592985}
   hands: 0
   headSet: 0
   instrument: 2
@@ -10154,7 +10156,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &586209701
 GameObject:
@@ -11536,7 +11538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  showGUI: 1
+  showGUI: 0
   offsetX: 0
   offsetY: 0
 --- !u!114 &685592985
@@ -11799,7 +11801,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 692633837}
-  - component: {fileID: 692633838}
   m_Layer: 0
   m_Name: Select Instruments
   m_TagString: Untagged
@@ -11824,18 +11825,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &692633838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 692633836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a2586b5b7a75444fb0b8bb68cce3200, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameters: {fileID: 0}
 --- !u!1 &705924993
 GameObject:
   m_ObjectHideFlags: 0
@@ -21034,6 +21023,57 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1310222071}
   m_Mesh: {fileID: 4300716, guid: 2517087cb70fd874686178155e4c5406, type: 3}
+--- !u!1 &1310437304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1310437306}
+  - component: {fileID: 1310437305}
+  m_Layer: 0
+  m_Name: NetworkDiscovery
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1310437305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1310437304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39a95b06ee291bf4c957f492c88349a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BroadcastPort: 47777
+  m_BroadcastKey: 2222
+  m_BroadcastVersion: 1
+  m_BroadcastSubVersion: 1
+  m_BroadcastInterval: 500
+  m_UseNetworkManager: 0
+  m_BroadcastData: 
+  m_ShowGUI: 0
+  m_OffsetX: 0
+  m_OffsetY: 0
+  discoveryTime: 1
+--- !u!4 &1310437306
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1310437304}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0009994507, z: 0.086}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1312064497
 GameObject:
   m_ObjectHideFlags: 0
@@ -24139,6 +24179,22 @@ MonoBehaviour:
   opAngle: 20
   parameters: {fileID: 583258254}
   selectedMode: 0
+  OnModeChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1318125614}
+        m_MethodName: UpdateText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   dontUpdate: 0
 --- !u!1 &1463051247
 GameObject:
