@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Leap.Unity;
 using Leap;
 
 public class LeverManipulator : MonoBehaviour {
@@ -16,7 +17,7 @@ public class LeverManipulator : MonoBehaviour {
     private HandEnum m_hand;
 
     [SerializeField]
-    private Controller lmController;
+    private LeapHandController lmController;
 
     private LeverSelector lever;
     private bool holdingButton = false;
@@ -54,13 +55,13 @@ public class LeverManipulator : MonoBehaviour {
         } else if (m_hand == HandEnum.RTOUCH) {
             buttonPressed = OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0.5f;
         } else if (m_hand == HandEnum.LeapMotionL) {
-            foreach(Hand h in lmController.Frame().Hands) {
+            foreach(Hand h in lmController.provider.CurrentFrame.Hands) {
                 if (h.IsLeft) {
                     buttonPressed = h.GrabStrength > 0.7f;
                 }
             }
         } else if (m_hand == HandEnum.LeapMotionR) {
-            foreach (Hand h in lmController.Frame().Hands) {
+            foreach (Hand h in lmController.provider.CurrentFrame.Hands) {
                 if (h.IsRight) {
                     buttonPressed = h.GrabStrength > 0.7f;
                 }
