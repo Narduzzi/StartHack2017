@@ -10,7 +10,7 @@ public class StepReader : MonoBehaviour {
 	private List<Note> notes;
 	private float time;
 	private List<List<Note>> notesArray = new List<List<Note>>();
-
+	public bool play = false;
 	public List<KeyCode> listKeys;	
 	public float offset = 0.2f;
 	public float time_offset = 4.0f;
@@ -28,11 +28,14 @@ public class StepReader : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		time += Time.deltaTime;
-		for (int i = 0; i < listKeys.Count; i++) {
-			Note note = PopAndRemove (notesArray [i], time);
-			if (note != null) {
-				this.GetComponent<ChannelsManager> ().PushNote (i, offset);;
+		if (play) {
+			time += Time.deltaTime;
+			for (int i = 0; i < listKeys.Count; i++) {
+				Note note = PopAndRemove (notesArray [i], time);
+				if (note != null) {
+					this.GetComponent<ChannelsManager> ().PushNote (i, offset);
+					;
+				}
 			}
 		}
 	}

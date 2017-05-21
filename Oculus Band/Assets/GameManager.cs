@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
     public MeshRenderer cubeRenderer;
     public float toleranceTime = 0.2f;
     public List<KeyCode> keys;
-
+	public bool play = false;
     public TextAsset songAsset;
 
     private List<Note> notes;
@@ -40,50 +40,47 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float currentTime = Time.unscaledTime - startTime;
+		if (play) {
+			float currentTime = Time.unscaledTime - startTime;
 
-        int i = 0;
-        foreach (var nl in notesArray)
-        {
-            if (nl.Count > 0)
-            {
-                Note currentNote = nl[0];
+			int i = 0;
+			foreach (var nl in notesArray) {
+				if (nl.Count > 0) {
+					Note currentNote = nl [0];
 
-                if (currentNote.time + toleranceTime < currentTime)
-                {
-					valid = false;
-					score -= 50;
-					if (score <= 0) {
-						score = 0;
-					}
-                    nl.Remove(currentNote);
-                }
-                else
-                {
-					if (instruManager != null) {
-						if (Input.GetKeyDown (keys [i]) || instruManager.KeyPressed (i)) {
-							if (Mathf.Abs (currentNote.time - currentTime) < toleranceTime) {
-								valid = true;
-								score += 100;
-								nl.Remove (currentNote);
+					if (currentNote.time + toleranceTime < currentTime) {
+						valid = false;
+						score -= 50;
+						if (score <= 0) {
+							score = 0;
+						}
+						nl.Remove (currentNote);
+					} else {
+						if (instruManager != null) {
+							if (Input.GetKeyDown (keys [i]) || instruManager.KeyPressed (i)) {
+								if (Mathf.Abs (currentNote.time - currentTime) < toleranceTime) {
+									valid = true;
+									score += 100;
+									nl.Remove (currentNote);
+								}
+
+								Debug.Log ("Key " + i + " pressed (valid=" + valid + ").");
 							}
-
-							Debug.Log ("Key " + i + " pressed (valid=" + valid + ").");
 						}
 					}
-                }
-            }
-            i++;
-        }
-		if (text != null) {
-			text.text = "Score\n" + score;
-		}
-        UpdateBox();
-        UpdateAudioManager();
+				}
+				i++;
+			}
+			if (text != null) {
+				text.text = "Score\n" + score;
+			}
+			UpdateBox ();
+			UpdateAudioManager ();
 
-		if(currentTime>audioManager.piano_source.clip.length){
-			//QUIT
-			//SceneManager.LoadScene(2);
+			if (currentTime > audioManager.piano_source.clip.length) {
+				//QUIT
+				//SceneManager.LoadScene(2);
+			}
 		}
 	}
 
