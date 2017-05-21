@@ -1,16 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Leap;
 
 public class LeverManipulator : MonoBehaviour {
 
     public enum HandEnum {
         LTOUCH,
-        RTOUCH
+        RTOUCH,
+        LeapMotionL,
+        LeapMotionR
     }
 
     [SerializeField]
     private HandEnum m_hand;
+
+    [SerializeField]
+    private Controller lmController;
 
     private LeverSelector lever;
     private bool holdingButton = false;
@@ -42,11 +48,25 @@ public class LeverManipulator : MonoBehaviour {
         if (lever == null)
             return;
 
-        bool buttonPressed = OVRInput.Get(
-                (m_hand == HandEnum.LTOUCH)
-                ? OVRInput.Axis1D.PrimaryHandTrigger
-                : OVRInput.Axis1D.SecondaryHandTrigger
-            ) > 0.5f;
+        bool buttonPressed = false;
+        if (m_hand == HandEnum.LTOUCH) {
+            buttonPressed = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) > 0.5f;
+        } else if (m_hand == HandEnum.RTOUCH) {
+            buttonPressed = OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0.5f;
+        } else if (m_hand == HandEnum.LeapMotionL) {
+            foreach(Hand h in lmController.Frame().Hands) {
+                if (h.IsLeft) {
+                    buttonPressed = h.GrabStrength > 0.7f;
+                }
+            }
+        } else if (m_hand == HandEnum.LeapMotionR) {
+            foreach (Hand h in lmController.Frame().Hands) {
+                if (h.IsRight) {
+                    buttonPressed = h.GrabStrength > 0.7f;
+                }
+            }
+        }
+
 
         if (!holdingButton && buttonPressed) {
             lever.RegisterHold(this.gameObject);

@@ -6,7 +6,8 @@ public class PointUse : MonoBehaviour {
 
     public enum HandEnum {
         LTouch,
-        RTouch
+        RTouch,
+        LeapMotion
     }
 
     [SerializeField]
@@ -16,8 +17,12 @@ public class PointUse : MonoBehaviour {
 	public bool IsPointing () {
 		if (controller == HandEnum.LTouch) {
             return !OVRInput.Get(OVRInput.Touch.PrimaryIndexTrigger) && OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) > 0.7f;
-        } else {
+        } else if (controller == HandEnum.RTouch) {
             return !OVRInput.Get(OVRInput.Touch.SecondaryIndexTrigger) && OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0.7f;
+        } else if (controller == HandEnum.LeapMotion) {
+            return true;
+        } else {
+            return false;
         }
 	}
 

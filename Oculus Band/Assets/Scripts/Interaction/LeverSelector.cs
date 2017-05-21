@@ -26,7 +26,7 @@ public class LeverSelector : MonoBehaviour {
             return angle;
         }
         set {
-            dontUpdate = false;
+            //dontUpdate = false;
             transform.localRotation = Quaternion.Euler(0f, 0f, value);
         }
     }
@@ -45,7 +45,7 @@ public class LeverSelector : MonoBehaviour {
 
     public void RegisterHold(GameObject holder) {
         this.holder = holder;
-        dontUpdate = false;
+        //dontUpdate = false;
     }
 
     public void UnregisterHold(GameObject holder) {
@@ -55,8 +55,8 @@ public class LeverSelector : MonoBehaviour {
     }
 	
 	void Update () {
-        if (dontUpdate)
-            return;
+        //if (dontUpdate)
+        //    return;
 
         // Let the lever fall back
         if (!holding) {
@@ -67,7 +67,7 @@ public class LeverSelector : MonoBehaviour {
 
             if (Mathf.Abs(newAngle) > opAngle) {
                 currentAngle = Mathf.Clamp(currentAngle, -opAngle, opAngle);
-                dontUpdate = true;
+                //dontUpdate = true;
             } else {
                 currentAngle = newAngle;
             }
