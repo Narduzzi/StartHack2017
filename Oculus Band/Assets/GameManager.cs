@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
     public MeshRenderer cubeRenderer;
     public float toleranceTime = 0.2f;
     public List<KeyCode> keys;
-
+	public bool play = false;
     public TextAsset songAsset;
 
     private List<Note> notes;
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 	
 	public string instrument;
 	public AudioManager audioManager;
+	private ChannelsManager channelManager;
 	private float treatmentTime = 0.3f;
 	public InstrumentManager instruManager;
 	public int score;
@@ -31,6 +32,10 @@ public class GameManager : MonoBehaviour {
 		if (notes == null || notes.Count < 2) {
 			throw new MissingComponentException ("No song found");
 		}
+		channelManager = this.GetComponent<ChannelsManager> ();
+		if (channelManager == null) {
+			Debug.LogError ("No ChannelManager attached in the GameObject " + this.gameObject);
+		}
 
 		notesArray = new List<List<Note>> ();
 		notesArray = StepReader.GenerateListByChannel(notesArray, keys, notes);
@@ -40,50 +45,31 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float currentTime = Time.unscaledTime - startTime;
-
-        int i = 0;
-        foreach (var nl in notesArray)
-        {
-            if (nl.Count > 0)
-            {
-                Note currentNote = nl[0];
-
-                if (currentNote.time + toleranceTime < currentTime)
-                {
-					valid = false;
-					score -= 50;
-					if (score <= 0) {
-						score = 0;
-					}
-                    nl.Remove(currentNote);
-                }
-                else
-                {
-					if (instruManager != null) {
-						if (Input.GetKeyDown (keys [i]) || instruManager.KeyPressed (i)) {
-							if (Mathf.Abs (currentNote.time - currentTime) < toleranceTime) {
-								valid = true;
-								score += 100;
-								nl.Remove (currentNote);
-							}
-
-							Debug.Log ("Key " + i + " pressed (valid=" + valid + ").");
-						}
-					}
-                }
-            }
-            i++;
-        }
-		if (text != null) {
-			text.text = "Score\n" + score;
+		if (!play) {
+			channelManager.RestoreAllChannels ();
 		}
-        UpdateBox();
-        UpdateAudioManager();
-
-		if(currentTime>audioManager.piano_source.clip.length){
-			//QUIT
-			//SceneManager.LoadScene(2);
+		if (play) {
+			if (instruManager != null) {
+				for (int i = 0; i < keys.Count; i++) {
+					if (Input.GetKeyDown (keys [i]) || instruManager.KeyPressed (i)) {
+						valid = channelManager.CheckChannel (i);
+						if (valid) { //False press
+							score = score + 100;
+							channelManager.RestoreAllChannels ();
+						} else {
+							score = score - 50;
+							//break;
+						}
+					} else {
+						valid = channelManager.CheckAllChannels ();
+					}
+				}
+			}
+			if (text != null) {
+				text.text = "Score\n" + score;
+			}
+			UpdateBox ();
+			UpdateAudioManager ();
 		}
 	}
 

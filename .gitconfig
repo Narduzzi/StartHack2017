@@ -1,0 +1,8 @@
+[merge]
+tool = unityyamlmerge
+
+# For this to work, you need to add your Unity install folder to your system path
+# specifically the folder Unity/Editor/Data/Tools
+[mergetool "unityyamlmerge"]
+trustExitCode = false
+cmd = 'UnityYAMLMerge.exe' merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
