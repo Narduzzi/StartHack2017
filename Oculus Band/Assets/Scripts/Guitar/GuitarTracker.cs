@@ -155,16 +155,16 @@ public class GuitarTracker : MonoBehaviour {
             currentNote = Mathf.FloorToInt(rangePerc * numberNotes);
             holdingNote = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) >= 0.7f;
 
-            if (holdingNote) {
+            /*if (holdingNote) {
                 VisualLog.Write("Playing note: " + currentNote);
             } else {
                 VisualLog.Write("Hovering note: " + currentNote);
-            }
+            }*/
         } else {
             currentNote = -1;
             holdingNote = false;
 
-            VisualLog.Write("No note");
+            //VisualLog.Write("No note");
         }
     }
 
