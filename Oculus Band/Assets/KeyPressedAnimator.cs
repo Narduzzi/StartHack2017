@@ -53,7 +53,7 @@ public class KeyPressedAnimator : MonoBehaviour {
 	void OnCollisionStay(Collision col){
 		if (col.gameObject.tag == "bone3") {
 			counter = 0.0f;
-			Debug.Log ("Pressed");
+			Debug.Log ("Pressed "+this.gameObject.ToString());
 		}
 	}
 
@@ -83,14 +83,15 @@ public class KeyPressedAnimator : MonoBehaviour {
 	void AnimateDown(){
 		this.GetComponent<Collider> ().enabled = false;
 		StartCoroutine (RestoreCollider (restoreTime));
-		this.transform.localPosition = downPosition;
-		this.transform.rotation = Quaternion.Euler (downRotation);
+        Vector3 pos = transform.localPosition;
+        pos.y -= 0.05f;
+		this.transform.localPosition = pos;
+		//this.transform.localRotation = Quaternion.Euler (downRotation);
 	}
 
 	void AnimateUp(){
-		
 		this.transform.localPosition = originalPosition;
-		this.transform.rotation = originalRotation;
+		//this.transform.localRotation = originalRotation;
 	}
 
 	IEnumerator RestoreCollider(float waitingTime){
