@@ -4518,7 +4518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManager: {fileID: 2016274738}
   gameLogic: {fileID: 1717813737}
-  RequiredPlayers: 2
+  RequiredPlayers: 1
   syncManager: {fileID: 348031511}
 --- !u!1 &1628927032
 GameObject:
@@ -6460,7 +6460,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1777623711718698, guid: 0384e98b503e03944ad666ce4949d2a4, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114722018974300428, guid: 0384e98b503e03944ad666ce4949d2a4,
         type: 2}
