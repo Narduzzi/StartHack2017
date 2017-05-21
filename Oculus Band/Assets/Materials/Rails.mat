@@ -6,24 +6,17 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Dot
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
+  m_Name: Rails
+  m_Shader: {fileID: 4800000, guid: 86b4c6dfb980be242b5bac24efd61b2b, type: 3}
+  m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
     - first:
         name: _BumpMap
-      second:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _ColorRamp
       second:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -76,22 +69,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _SpecGlossMap
-      second:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - first:
-        name: _BumpAmt
-      second: 1.96
     - first:
         name: _BumpScale
       second: 1
-    - first:
-        name: _ColorRampOffset
-      second: 0
     - first:
         name: _Cutoff
       second: 0.5
@@ -100,31 +81,31 @@ Material:
       second: 1
     - first:
         name: _DstBlend
-      second: 10
+      second: 0
     - first:
         name: _GlossMapScale
       second: 1
     - first:
         name: _Glossiness
-      second: 0.329
+      second: 0.5
     - first:
         name: _GlossyReflections
       second: 1
     - first:
+        name: _Glow
+      second: 0.94
+    - first:
         name: _Metallic
-      second: 0.397
+      second: 0
     - first:
         name: _Mode
-      second: 3
+      second: 0
     - first:
         name: _OcclusionStrength
       second: 1
     - first:
         name: _Parallax
       second: 0.02
-    - first:
-        name: _Shininess
-      second: 1
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -139,14 +120,11 @@ Material:
       second: 0
     - first:
         name: _ZWrite
-      second: 0
+      second: 1
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.50735295, g: 0.50735295, b: 0.50735295, a: 0.572}
+      second: {r: 0.88235295, g: 0.88235295, b: 0.88235295, a: 1}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
-    - first:
-        name: _SpecColor
-      second: {r: 0.5, g: 0.5, b: 0.5, a: 0}
