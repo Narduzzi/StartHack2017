@@ -11,7 +11,7 @@ public class ChannelsManager : MonoBehaviour {
 	private List<GameObject> channelsGO;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		StepRecorder rec = this.GetComponent < StepRecorder> ();
 		if (rec != null) {
 			keys = rec.listKeys;
@@ -56,7 +56,6 @@ public class ChannelsManager : MonoBehaviour {
 
 			Debug.Log (i + " : " + pos);
 			//channel.transform.localScale = this.transform.localScale;
-
 			channel.transform.parent = this.transform;
 			channel.transform.gameObject.name = "Channel_" + i;
 			channel.SetActive (true);
