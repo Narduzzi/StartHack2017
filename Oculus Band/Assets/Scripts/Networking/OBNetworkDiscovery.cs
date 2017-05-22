@@ -74,7 +74,7 @@ namespace OBNet {
         /// <summary>
         /// Overriding Initialize method for additional initialization
         /// </summary>
-        public new void Initialize() {
+        /*public new void Initialize() {
             base.Initialize();
 
             NetworkManager netMngr = NetworkManager.singleton;
@@ -88,7 +88,7 @@ namespace OBNet {
                     base.broadcastData = ip + ":" + port + ":" + gameName;
                 }
             }
-        }
+        }*/
 
 
         /// <summary>
@@ -126,13 +126,14 @@ namespace OBNet {
         /// <param name="fromAddress">Local address of the server</param>
         /// <param name="data">Data package received from server</param>
         public override void OnReceivedBroadcast(string fromAddress, string data) {
+            string[] parts1 = fromAddress.Split(':');
             string[] parts = data.Split(':');
 
-            string addr = parts[0];
-            string port = parts[1];
-            string name = parts[2];
+            string addr = parts1[3];
+            string port = parts[2];
+            //string name = parts[2];
 
-            gamesFound.Add(new NetworkGame(addr, port, name));
+            gamesFound.Add(new NetworkGame(addr, port, "game"));
         }
 
 

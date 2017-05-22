@@ -23392,7 +23392,7 @@ MonoBehaviour:
   m_BroadcastVersion: 1
   m_BroadcastSubVersion: 1
   m_BroadcastInterval: 500
-  m_UseNetworkManager: 0
+  m_UseNetworkManager: 1
   m_BroadcastData: 
   m_ShowGUI: 0
   m_OffsetX: 0
@@ -31776,7 +31776,7 @@ MonoBehaviour:
   m_BroadcastVersion: 1
   m_BroadcastSubVersion: 1
   m_BroadcastInterval: 500
-  m_UseNetworkManager: 0
+  m_UseNetworkManager: 1
   m_BroadcastData: 
   m_ShowGUI: 0
   m_OffsetX: 0
