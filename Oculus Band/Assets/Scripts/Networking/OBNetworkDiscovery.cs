@@ -186,13 +186,16 @@ namespace OBNet {
             Initialize();
             Clear();
             StartAsClient();
-            yield return new WaitForSeconds(discoveryTime);
 
+            Debug.Log("Starting at time " + Time.time);
+            yield return new WaitForSeconds(discoveryTime);
+            Debug.Log("Finished at time " + Time.time);
             StopBroadcast();
+            
+            Debug.Log("Discovery found " + gamesFound.Count + " game(s)");
 
             CleanGamesFound();
 
-            Debug.Log("Discovery found " + gamesFound.Count + " game(s)");
 
             if (m_callback != null) {
                 m_callback.Invoke(gamesFound);
