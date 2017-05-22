@@ -5611,6 +5611,16 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 0.12457335
       objectReference: {fileID: 0}
+    - target: {fileID: 136002003672843944, guid: 036dc98efb6b98f44b193f1bd96aaf8f,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 136486306984635850, guid: 036dc98efb6b98f44b193f1bd96aaf8f,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 036dc98efb6b98f44b193f1bd96aaf8f, type: 2}
   m_IsPrefabParent: 0

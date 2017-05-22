@@ -14,7 +14,9 @@ public class SetupConcertScene : MonoBehaviour {
     public GuitarTracker guitarTracker;
     public GameObject[] GuitarHands;
 
-	public GameObject CameraPlayer;
+	public GameObject CameraPlayerOVR;
+	public GameObject CameraPlayerDesktop;
+	private GameObject CameraPlayer;
 	public AudioManager audioManager;
 	private NetworkParameters parameters;
 	private string instrument;
@@ -43,7 +45,10 @@ public class SetupConcertScene : MonoBehaviour {
 		if (DrumsPlayerTransform == null) {
 			Debug.LogError ("DrumsPlayerTransform is null");
 		}
-		if (CameraPlayer == null) {
+		if (CameraPlayerOVR == null) {
+			Debug.LogError ("CameraPlayer is null");
+		}
+		if (CameraPlayerDesktop == null) {
 			Debug.LogError ("CameraPlayer is null");
 		}
 		if (audioManager == null) {
@@ -53,9 +58,27 @@ public class SetupConcertScene : MonoBehaviour {
 		instrument = parameters.getInstrument ();
 		headset = parameters.getHeadset ();
 		hands = parameters.getHands ();
+
+		CheckIfDesktop ();
+
 		Setup (instrument, headset, hands);
 	}
 
+	private void CheckIfDesktop(){
+		if (parameters.getHeadset () == "Desktop") {
+			Vector3 piano_pos = PianoPlayerTransform.position;
+			piano_pos.y = piano_pos.y + 0.85f;
+			PianoPlayerTransform.position = piano_pos;
+			CameraPlayerOVR.SetActive (false);
+			CameraPlayerDesktop.SetActive (true);
+			CameraPlayer = CameraPlayerDesktop;
+			CameraPlayer.GetComponent<Camera> ().fieldOfView = 60;
+		} else {
+			CameraPlayerOVR.SetActive (true);
+			CameraPlayerDesktop.SetActive (false);
+			CameraPlayer = CameraPlayerOVR;
+		}
+	}
 
 
 	void Setup(string instrument, string headset, string hands){
