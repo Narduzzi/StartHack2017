@@ -20,9 +20,11 @@ public class InstrumentManager : MonoBehaviour {
         return keys;
     }
 
-	public bool KeyPressed(int index)
+	public bool ReadKeyPressed(int index)
     {
-        return pressedKeys[index];
+        bool pressed = pressedKeys[index];
+        pressedKeys[index] = false;
+        return pressed;
     }
 
     public void PressKey(int index)

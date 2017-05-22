@@ -33,7 +33,7 @@ public class DrumCollider : MonoBehaviour {
         {
             instrumentManager.PressKey(type);
             ds.DoHaptics();
-            StartCoroutine("Release");
+            //StartCoroutine("Release");
 
             var mr = gameObject.GetComponent<MeshRenderer>();
             if (mr != null)

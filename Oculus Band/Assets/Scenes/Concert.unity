@@ -1086,7 +1086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: 1
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: b53531fa664f48c4eb1bdc8e79839175, type: 3}
 --- !u!1001 &501412735
 Prefab:
   m_ObjectHideFlags: 0
@@ -2718,7 +2718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: 2
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: b53531fa664f48c4eb1bdc8e79839175, type: 3}
 --- !u!1 &1298047120
 GameObject:
   m_ObjectHideFlags: 0
@@ -3482,6 +3482,11 @@ Prefab:
       propertyPath: maxDistance
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 114069148332472002, guid: 5e0934d9d7cb6b84db745903685a4ba1,
+        type: 2}
+      propertyPath: syncManager
+      value: 
+      objectReference: {fileID: 348031511}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e0934d9d7cb6b84db745903685a4ba1, type: 2}
   m_IsPrefabParent: 0

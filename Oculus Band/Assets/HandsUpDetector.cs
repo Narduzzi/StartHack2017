@@ -8,10 +8,15 @@ public class HandsUpDetector : MonoBehaviour {
 	public GameObject HandL;
 	public GameObject HandR;
 
+    public SyncManager syncManager;
+
 	public float maxDistance;
 	private float maxHeight;
 	private float volume;
 	private float totalDistance;
+
+    private float startTime = -1.0f;
+
 	// Use this for initialization
 	void Start () {
 		if (crowd_source == null) {
@@ -43,14 +48,29 @@ public class HandsUpDetector : MonoBehaviour {
 			float height = CheckHands ();
 			if (height <= 0) {
 				volume = 0;
-			} else if (height > maxHeight) {
+
+                startTime = -1.0f;
+            } else if (height > maxHeight) {
 				volume = 1;
 			} else {
 				volume = height / totalDistance;
 				if (!crowd_source.isPlaying) {
 					crowd_source.Play ();
 				}
-			}
+
+                if (!syncManager.play && volume > 0.5f) {
+                    if (startTime < 0.0f) {
+                        Debug.Log("Settings start");
+                        startTime = Time.time;
+                    } else {
+                        float deltaTime = Time.time - startTime;
+                        if (deltaTime > 3.0f) {
+                            Debug.Log("YOU DID IT !");
+                            syncManager.play = true;
+                        }
+                    }
+                }
+            }
 			crowd_source.volume = volume;
 		}
 	}

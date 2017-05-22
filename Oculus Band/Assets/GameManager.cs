@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour {
 		if (play) {
 			if (instruManager != null) {
 				for (int i = 0; i < keys.Count; i++) {
-					if (Input.GetKeyDown (keys [i]) || instruManager.KeyPressed (i)) {
+					if (Input.GetKeyDown (keys [i]) || instruManager.ReadKeyPressed (i)) {
 						valid = channelManager.CheckChannel (i);
 						if (valid) { //False press
 							score = score + 100;

@@ -210,7 +210,7 @@ public class GuitarTracker : MonoBehaviour {
 
                     if (holdingNote) {
                         instruManager.PressKey(currentNote);
-                        StartCoroutine(ReleaseKey(currentNote));
+                        //StartCoroutine(ReleaseKey(currentNote));
                     }
                 }
             }
