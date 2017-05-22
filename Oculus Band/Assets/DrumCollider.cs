@@ -28,9 +28,11 @@ public class DrumCollider : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "DrumStick")
+        Drumstick ds = other.GetComponent<Drumstick>();
+        if (ds != null)
         {
             instrumentManager.PressKey(type);
+            ds.DoHaptics();
             StartCoroutine("Release");
 
             var mr = gameObject.GetComponent<MeshRenderer>();

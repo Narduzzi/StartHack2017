@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class Drumstick : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    public OVRInput.Controller controller;
+    public AudioClip clip;
+    private OVRHapticsClip hapticsClip;
+
+    void Start() {
+        hapticsClip = new OVRHapticsClip(clip);
+    }
+
+	public void DoHaptics () {
+        OVRHaptics.OVRHapticsChannel channel = (controller == OVRInput.Controller.LTouch) ? OVRHaptics.LeftChannel : OVRHaptics.RightChannel;
+        channel.Preempt(hapticsClip);
 	}
 
 }
