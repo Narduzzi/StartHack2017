@@ -4177,6 +4177,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 036dc98efb6b98f44b193f1bd96aaf8f, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1549184881 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1102884999777342, guid: 036dc98efb6b98f44b193f1bd96aaf8f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1549184880}
 --- !u!1 &1575537081
 GameObject:
   m_ObjectHideFlags: 0
@@ -4215,7 +4220,8 @@ MonoBehaviour:
   GuitarHands:
   - {fileID: 174911055}
   - {fileID: 1773125054}
-  CameraPlayer: {fileID: 1889767415}
+  CameraPlayerOVR: {fileID: 1889767415}
+  CameraPlayerDesktop: {fileID: 1549184881}
   audioManager: {fileID: 1424825664}
 --- !u!4 &1575537083
 Transform:

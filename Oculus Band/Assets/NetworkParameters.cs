@@ -17,7 +17,7 @@ public class NetworkParameters : MonoBehaviour {
 	public Hands hands = Hands.LeapMotion;
 	public HeadSet headSet = HeadSet.Desktop;
 	public Instrument instrument = Instrument.Piano;
-
+	private bool tryingToConnect = false;
 	void Awake(){
 		DontDestroyOnLoad (this.gameObject);
 	}
@@ -55,18 +55,22 @@ public class NetworkParameters : MonoBehaviour {
     }
 
     private void ConnectToFirstRoom(List<NetworkGame> games){
-		if (games.Count == 0) {
-			manager.networkAddress = "localhost";
-			manager.networkPort = 7777;
-			discovery.Initialize ();
-			discovery.StartAsServer ();
-            manager.StartHost();
-		} else {
-			NetworkGame first = games [0];
-			manager.networkAddress = first.addr;
-			manager.networkPort = Convert.ToInt32(first.port);
-			manager.StartClient ();
+		if (tryingToConnect == false) {
+			if (games.Count == 0) {
+				manager.networkAddress = "localhost";
+				manager.networkPort = 7777;
+				discovery.Initialize ();
+				discovery.StartAsServer ();
+				manager.StartHost ();
+			} else {
+				NetworkGame first = games [0];
+				manager.networkAddress = first.addr;
+				manager.networkPort = Convert.ToInt32 (first.port);
+				manager.StartClient ();
+			}
+			tryingToConnect = true;
 		}
+
 	}
 
 	private void setHands(Hands hands){
