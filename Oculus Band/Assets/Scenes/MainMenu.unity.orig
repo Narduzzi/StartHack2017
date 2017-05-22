@@ -1847,16 +1847,25 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 74098162}
   m_Mesh: {fileID: 4300236, guid: 2517087cb70fd874686178155e4c5406, type: 3}
+<<<<<<< HEAD
 --- !u!1 &77270819 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1532587456618694, guid: 036dc98efb6b98f44b193f1bd96aaf8f,
     type: 2}
   m_PrefabInternal: {fileID: 279462307}
 --- !u!114 &77270821
+=======
+--- !u!1 &75578627 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100002, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+  m_PrefabInternal: {fileID: 1975942079}
+--- !u!114 &75578630
+>>>>>>> e657d81205b491bb632fb3aa9bf4f1b9b13839f6
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+<<<<<<< HEAD
   m_GameObject: {fileID: 77270819}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -1877,6 +1886,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: 2
+=======
+  m_GameObject: {fileID: 75578627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8e1d778abf442e4bec449c360e9e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 2
+  fadeColor: {r: 0.01, g: 0.01, b: 0.01, a: 1}
+>>>>>>> e657d81205b491bb632fb3aa9bf4f1b9b13839f6
 --- !u!1 &78757916
 GameObject:
   m_ObjectHideFlags: 0
