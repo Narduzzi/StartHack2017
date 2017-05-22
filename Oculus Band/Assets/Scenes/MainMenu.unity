@@ -11144,13 +11144,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36325870cb52be4b99838ee3a840f69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfPlayers: 0
+  numberOfPlayers: 2
   discoveryClient: {fileID: 1310437305}
   discoveryServer: {fileID: 1779860033}
   manager: {fileID: 685592985}
   hands: 0
   headSet: 0
-  instrument: 2
+  instrument: 1
 --- !u!4 &583258255
 Transform:
   m_ObjectHideFlags: 0
@@ -12780,7 +12780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  showGUI: 0
+  showGUI: 1
   offsetX: 0
   offsetY: 0
 --- !u!114 &685592985
