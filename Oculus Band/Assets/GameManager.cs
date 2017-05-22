@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
 							score = score + 100;
 							channelManager.RestoreAllChannels ();
 						} else {
-							score = score - 50;
+							//score = score - 50;
 							//break;
 						}
 					} else {

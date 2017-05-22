@@ -60,13 +60,19 @@ public class StepFaller : MonoBehaviour {
 
 	public void AnimateFail(){
 		around.GetComponent<Renderer> ().material.color = failColor;
-	}
+        StartCoroutine(DestroyNote());
+    }
 
 	private IEnumerator ElevateDestroy(){
 		finished = true;
 		yield return new WaitForSeconds (0.8f);
 		GameObject.Destroy(this.gameObject);
 	}
+
+    private IEnumerator DestroyNote() {
+        yield return new WaitForSeconds(0.8f);
+        GameObject.Destroy(this.gameObject);
+    }
 
 
 }
