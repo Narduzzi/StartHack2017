@@ -11,8 +11,9 @@ public class NetworkParameters : MonoBehaviour {
 	public enum HeadSet{Desktop,Oculus};
 	public enum Hands{LeapMotion,Touch};
 	public int numberOfPlayers;
-	public OBNet.OBNetworkDiscovery discovery;
-	public NetworkManager manager;
+	public OBNetworkDiscovery discoveryClient;
+    public OBNetworkDiscovery discoveryServer;
+    public NetworkManager manager;
 
 	public Hands hands = Hands.LeapMotion;
 	public HeadSet headSet = HeadSet.Desktop;
@@ -50,7 +51,7 @@ public class NetworkParameters : MonoBehaviour {
             yield return osf.FadeOut();
         }
 
-        discovery.DiscoverGames(ConnectToFirstRoom);
+        discoveryClient.DiscoverGames(ConnectToFirstRoom);
         yield return null;
     }
 
@@ -59,8 +60,8 @@ public class NetworkParameters : MonoBehaviour {
 			if (games.Count == 0) {
 				manager.networkAddress = "localhost";
 				manager.networkPort = 7777;
-				discovery.Initialize ();
-				discovery.StartAsServer ();
+				discoveryServer.Initialize ();
+				discoveryServer.StartAsServer ();
 				manager.StartHost ();
 			} else {
 				NetworkGame first = games [0];

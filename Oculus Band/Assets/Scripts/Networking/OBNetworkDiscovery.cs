@@ -192,6 +192,8 @@ namespace OBNet {
 
             CleanGamesFound();
 
+            Debug.Log("Discovery found " + gamesFound.Count + " game(s)");
+
             if (m_callback != null) {
                 m_callback.Invoke(gamesFound);
             }

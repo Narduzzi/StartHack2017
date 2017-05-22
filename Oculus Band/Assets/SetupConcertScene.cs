@@ -103,6 +103,7 @@ public class SetupConcertScene : MonoBehaviour {
 
         Debug.Log("Searching for : " + "GameLogicGlow" + instrument);
         this.GetComponent<GameInitializer>().gameLogic = GameObject.Find("GameLogicGlow" + instrument);
+        this.GetComponent<GameInitializer>().RequiredPlayers = parameters.getNumberOfPlayers();
 
         //Parameters for headset and hands
     }
