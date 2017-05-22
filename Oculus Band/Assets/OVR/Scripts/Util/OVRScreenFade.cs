@@ -21,6 +21,7 @@ limitations under the License.
 
 using UnityEngine;
 using System.Collections; // required for Coroutines
+using System;
 
 /// <summary>
 /// Fades the screen from black after a new scene is loaded.
@@ -100,10 +101,26 @@ public class OVRScreenFade : MonoBehaviour
 		isFading = false;
 	}
 
-	/// <summary>
-	/// Renders the fade overlay when attached to a camera object
+    /// <summary>
+	/// Fades alpha from 0.0 to 1.0
 	/// </summary>
-	void OnPostRender()
+	public IEnumerator FadeOut() {
+        float elapsedTime = 0.0f;
+        fadeMaterial.color = fadeColor;
+        Color color = fadeColor;
+        isFading = true;
+        while (elapsedTime < fadeTime) {
+            yield return fadeInstruction;
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Clamp01(elapsedTime / fadeTime);
+            fadeMaterial.color = color;
+        }
+    }
+
+    /// <summary>
+    /// Renders the fade overlay when attached to a camera object
+    /// </summary>
+    void OnPostRender()
 	{
 		if (isFading)
 		{

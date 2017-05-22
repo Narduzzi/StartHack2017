@@ -32,6 +32,9 @@ public class GuitarTracker : MonoBehaviour {
     private int numberNotes = 5;
 
     [SerializeField]
+    private int[] keyRemap;
+
+    [SerializeField]
     private Color[] noteColors;
 
     [Tooltip("The length of the guitar considering the scale parameter.")]
@@ -131,7 +134,7 @@ public class GuitarTracker : MonoBehaviour {
         Quaternion rotation = Quaternion.LookRotation(direction, Vector3.forward);
 
         this.transform.rotation = rotation * initialRotation;
-        this.transform.position = initialPosition + anchor.position + anchorOffset;
+        this.transform.position = anchor.position + anchorOffset;
     }
 
     /// <summary>
@@ -152,7 +155,7 @@ public class GuitarTracker : MonoBehaviour {
         }
 
         if (inRange) {
-            currentNote = Mathf.FloorToInt(rangePerc * numberNotes);
+            currentNote = keyRemap[Mathf.FloorToInt(rangePerc * numberNotes)];
             holdingNote = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) >= 0.7f;
 
             /*if (holdingNote) {
@@ -207,10 +210,17 @@ public class GuitarTracker : MonoBehaviour {
 
                     if (holdingNote) {
                         instruManager.PressKey(currentNote);
+                        StartCoroutine(ReleaseKey(currentNote));
                     }
                 }
             }
         }
+    }
+
+    private IEnumerator ReleaseKey(int key) {
+        yield return new WaitForSeconds(0.05f);
+        instruManager.UnpressKey(key);
+        yield return null;
     }
 
 
