@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour {
 			if (text != null) {
 				text.text = "Score\n" + score;
 			}
-			UpdateBox ();
+			//UpdateBox ();
 			UpdateAudioManager ();
 		}
 	}

@@ -6,8 +6,14 @@ using UnityEngine.Networking;
 public class SetupConcertScene : MonoBehaviour {
 
 	public Transform PianoPlayerTransform;
+
 	public Transform DrumsPlayerTransform;
+    public GameObject[] DrumsHands;
+
 	public Transform GuitarPlayerTransform;
+    public GuitarTracker guitarTracker;
+    public GameObject[] GuitarHands;
+
 	public GameObject CameraPlayer;
 	public AudioManager audioManager;
 	private NetworkParameters parameters;
@@ -53,21 +59,30 @@ public class SetupConcertScene : MonoBehaviour {
 
 
 	void Setup(string instrument, string headset, string hands){
+        Debug.Log("Setting up instrument " + instrument);
 		audioManager.myInstrument = instrument;
-		this.GetComponent<GameInitializer> ().gameLogic = GameObject.Find ("GameLogicGlow" + instrument);
 		if (instrument == "Piano") {
 			SetupPlayerLocation (PianoPlayerTransform);
 		} else if (instrument == "Guitar") {
 			SetupPlayerLocation (GuitarPlayerTransform);
+            guitarTracker.gameObject.SetActive(true);
+            foreach(GameObject go in GuitarHands) {
+                go.SetActive(true);
+            }
 		} else if (instrument == "Drums") {
 			SetupPlayerLocation (DrumsPlayerTransform);
-		} else {
+            foreach (GameObject go in DrumsHands) {
+                go.SetActive(true);
+            }
+        } else {
 			Debug.LogError ("Instrument \"" + instrument + "\" was not setup in game. No such instrument exists.");
 		}
 
+        Debug.Log("Searching for : " + "GameLogicGlow" + instrument);
+        this.GetComponent<GameInitializer>().gameLogic = GameObject.Find("GameLogicGlow" + instrument);
 
-		//Parameters for headset and hands
-	}
+        //Parameters for headset and hands
+    }
 		
 	void SetupPlayerLocation(Transform transform){
 		CameraPlayer.transform.position = transform.position;
