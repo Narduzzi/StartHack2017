@@ -67,7 +67,7 @@ public class SetupConcertScene : MonoBehaviour {
 	private void CheckIfDesktop(){
 		if (parameters.getHeadset () == "Desktop") {
 			Vector3 piano_pos = PianoPlayerTransform.position;
-			piano_pos.y = piano_pos.y + 0.85f;
+			piano_pos.y = piano_pos.y + 1.2f;
 			PianoPlayerTransform.position = piano_pos;
 			CameraPlayerOVR.SetActive (false);
 			CameraPlayerDesktop.SetActive (true);
