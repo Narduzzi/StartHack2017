@@ -37,6 +37,8 @@ public class LeverSelector : MonoBehaviour {
 	void Start () {
         opAngle = Mathf.Abs(opAngle);
         selectedMode = GetMode();
+
+        OnModeChange.Invoke();
 	}
 
     public SelectedMode GetMode() {

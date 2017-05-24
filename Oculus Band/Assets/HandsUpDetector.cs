@@ -8,6 +8,7 @@ public class HandsUpDetector : MonoBehaviour {
 	public GameObject HandL;
 	public GameObject HandR;
 
+    public NetworkParameters parameters;
     public SyncManager syncManager;
 
 	public float maxDistance;
@@ -19,6 +20,17 @@ public class HandsUpDetector : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (parameters == null) {
+            parameters = GameObject.Find("Params").GetComponent<NetworkParameters>() ;
+        }
+        if (parameters!= null) {
+            Debug.Log("Found parameters");
+            Debug.Log(parameters.getHands());
+            if (parameters.getHands().Equals("LeapMotion")) {
+                Debug.Log("Found Parameters(Leap Motion)");
+                maxDistance = maxDistance / 2.0f;
+            }
+        }
 		if (crowd_source == null) {
 			Debug.Log ("No source found for crowd");
 			this.gameObject.SetActive (false);
@@ -39,12 +51,9 @@ public class HandsUpDetector : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Head != null) {
-			if (HandL == null) {
-				FindLeftHand ();
-			}
-			if (HandR == null) {
-				FindRightHand ();
-			}
+            if (HandL == null || HandR == null) {
+                FindHands();
+            }
 			float height = CheckHands ();
 			if (height <= 0) {
 				volume = 0;
@@ -100,27 +109,30 @@ public class HandsUpDetector : MonoBehaviour {
 	}
 
 	private void FindRightHand (){
-		GameObject HandR_trans = GameObject.Find ("RightHandAnchor");
+		GameObject HandR_trans = GameObject.Find("RigidRoundHand_R");
 		if(HandR_trans ==null){
-			HandR_trans = GameObject.Find ("RigidRoundHand_R");
+            HandR_trans = GameObject.Find ("RigidRoundHand_R (Clone)");
 		}
-		if(HandR_trans ==null){
-			HandR_trans = GameObject.Find ("RigidRoundHand_R (Clone)");
-		}
-		if(HandR_trans != null){
+        if (HandR_trans == null && parameters.getHands() == "Touch") {
+            HandR_trans = GameObject.Find("RightHandAnchor");
+        }
+        if (HandR_trans != null){
 			HandR = HandR_trans.gameObject;
 		}
 	}
 
 	private void FindLeftHand(){
-		GameObject HandL_trans = GameObject.Find ("LeftHandAnchor");
-		if (HandL_trans == null) {
-			HandL_trans = GameObject.Find ("RigidRoundHand_L");
-		}
-		if (HandL_trans == null) {
+		GameObject HandL_trans = GameObject.Find("RigidRoundHand_L");
+
+        if (HandL_trans == null) {
 			HandL_trans = GameObject.Find ("RigidRoundHand_L (Clone)");
 		}
-		if (HandL_trans != null) {
+
+        if (HandL_trans == null && parameters.getHands() == "Touch") {
+            HandL_trans = GameObject.Find("LeftHandAnchor");
+        }
+
+        if (HandL_trans != null) {
 			HandL = HandL_trans.gameObject;
 		}
 	}

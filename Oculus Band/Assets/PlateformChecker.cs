@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VR;
+using Leap;
 
 public class PlateformChecker : MonoBehaviour {
 
 	public GameObject OculusParent;
 	public GameObject DesktopParent;
+    public GameObject LeapMotionVR;
 	public GameObject SelectInstrument;
 
 	private GameObject Guitar_pos;
@@ -20,7 +22,7 @@ public class PlateformChecker : MonoBehaviour {
 			OculusParent.SetActive (true);
 			DesktopParent.SetActive (false);
 			parameters.SetHeadSet ("Oculus");
-
+         
 		} else {
 			Debug.Log ("NO VR");
 			OculusParent.SetActive (false);
@@ -28,13 +30,20 @@ public class PlateformChecker : MonoBehaviour {
 			FindPositions ();
 			LocateSelectInstrument ();
 			parameters.SetHeadSet ("Desktop");
-			parameters.SetHands ("Leap Motion");
+			parameters.SetHands ("LeapMotion");
 		}
 	}
 	// Use this for initialization
 	void Start () {
-		
-	}
+        Controller controller = new Controller();
+        if (controller.IsConnected && VRDevice.isPresent) {
+            print("Leap motion is connected");
+            parameters.SetHands("LeapMotion");
+            SetOculusLeapMotion(true);
+        }else {
+            SetOculusLeapMotion(false);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -52,4 +61,11 @@ public class PlateformChecker : MonoBehaviour {
 		SelectInstrument.transform.FindChild ("Piano").position = Piano_pos.transform.position;
 		SelectInstrument.transform.FindChild ("Guitar").position = Guitar_pos.transform.position;
 	}
+
+    private void SetOculusLeapMotion(bool val) {
+        if (val) {
+            LeapMotionVR.SetActive(true);
+            parameters.SetHands("LeapMotion");
+        }
+    }
 }
