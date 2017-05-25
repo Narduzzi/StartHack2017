@@ -40,7 +40,6 @@ public class NoteEvaluator : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider){
-		Debug.Log ("Trigger Entered");
         if (collider.gameObject.tag == "Step") {
             colliding = collider.gameObject;
         }

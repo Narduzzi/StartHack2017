@@ -18,7 +18,7 @@ public class PlateformChecker : MonoBehaviour {
 
 	void Awake(){
 		if (VRDevice.isPresent) {
-			Debug.Log ("PRESENT");
+			Debug.Log ("VR Mode");
 			OculusParent.SetActive (true);
 			DesktopParent.SetActive (false);
 			parameters.SetHeadSet ("Oculus");
