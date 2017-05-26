@@ -23,27 +23,59 @@ public class NetworkParameters : MonoBehaviour {
 		DontDestroyOnLoad (this.gameObject);
 	}
 
+	/// <summary>
+	/// Gets the instrument.
+	/// </summary>
+	/// <returns>The instrument.</returns>
 	public string getInstrument(){
 		return instrument.ToString();
 	}
+
+	/// <summary>
+	/// Gets the headset.
+	/// </summary>
+	/// <returns>The headset.</returns>
 	public string getHeadset(){
 		return headSet.ToString();
 	}
+
+	/// <summary>
+	/// Gets the hands.
+	/// </summary>
+	/// <returns>The hands.</returns>
 	public string getHands(){
 		return hands.ToString();
 	}
+
+	/// <summary>
+	/// Gets the number of players.
+	/// </summary>
+	/// <returns>The number of players.</returns>
 	public int getNumberOfPlayers(){
 		return numberOfPlayers;	
 	}
+
+	/// <summary>
+	/// Sets the number of players.
+	/// </summary>
+	/// <param name="numberOfPlayers">Number of players.</param>
 	public void SetNumberOfPlayers(int numberOfPlayers){
 		this.numberOfPlayers = numberOfPlayers;
 	}
+
+	/// <summary>
+	/// Sets the instrument.
+	/// </summary>
+	/// <param name="instrument">Instrument.</param>
 	private void setInstrument(Instrument instrument){
 		this.instrument = instrument;
 
         StartCoroutine(StartDiscovery());
     }
 
+	/// <summary>
+	/// Starts the discovery.
+	/// </summary>
     private IEnumerator StartDiscovery() {
         OVRScreenFade osf = GameObject.FindObjectOfType<OVRScreenFade>();
         if (osf != null) {
@@ -55,6 +87,10 @@ public class NetworkParameters : MonoBehaviour {
         yield return null;
     }
 
+	/// <summary>
+	/// Connects to first room found.
+	/// </summary>
+	/// <param name="games">Games.</param>
     private void ConnectToFirstRoom(List<NetworkGame> games){
 		if (tryingToConnect == false) {
 			if (games.Count == 0) {

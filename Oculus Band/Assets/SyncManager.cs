@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class SyncManager : NetworkBehaviour {
 	[SyncVar]
-	public bool play = false;
+	public bool play = false; //Share among managers
 	public float WaitForSyncDelay = 0.05f;
 	private float delay = 0.0f;
 

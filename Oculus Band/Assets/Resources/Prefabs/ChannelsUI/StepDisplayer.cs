@@ -32,6 +32,10 @@ public class StepDisplayer : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Pushes the note in the channel.
+	/// </summary>
+	/// <param name="offset">Offset.</param>
 	public void PushNote(float offset){
 		//GameObject newstep = Instantiate(Resources.Load("Prefabs/Step")) as GameObject;
 		GameObject newstep = Instantiate(originalStep) as GameObject;
@@ -61,6 +65,10 @@ public class StepDisplayer : MonoBehaviour {
 		*/
     }
 
+	/// <summary>
+	/// Sets the key to this displayer.
+	/// </summary>
+	/// <param name="k">K.</param>
     public void SetKeycode(KeyCode k){
 		this.keycode = k;
 	}

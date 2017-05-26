@@ -72,7 +72,9 @@ public class GameManager : MonoBehaviour {
 			UpdateAudioManager ();
 		}
 	}
-
+	/// <summary>
+	/// Updates the audio manager.
+	/// </summary>
     public void UpdateAudioManager()
     {
         if (valid)
@@ -84,7 +86,9 @@ public class GameManager : MonoBehaviour {
             audioManager.Failed(instrument);
         }
     }
-
+	/// <summary>
+	/// Updates the box. Not used anymore.
+	/// </summary>
     private void UpdateBox()
     {
         if (valid)
