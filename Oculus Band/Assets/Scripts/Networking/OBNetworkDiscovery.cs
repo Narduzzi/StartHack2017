@@ -74,7 +74,7 @@ namespace OBNet {
         /// <summary>
         /// Overriding Initialize method for additional initialization
         /// </summary>
-        /*public new void Initialize() {
+        public new void Initialize() {
             base.Initialize();
 
             NetworkManager netMngr = NetworkManager.singleton;
@@ -88,7 +88,7 @@ namespace OBNet {
                     base.broadcastData = ip + ":" + port + ":" + gameName;
                 }
             }
-        }*/
+        }
 
 
         /// <summary>

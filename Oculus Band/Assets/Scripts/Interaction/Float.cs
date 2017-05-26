@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Attach to an object to make it appear to float
+/// (it bobs up and down and rotates)
+/// </summary>
 public class Float : MonoBehaviour {
 
     [SerializeField]

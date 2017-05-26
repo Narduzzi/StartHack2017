@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Simple script to change lever text. 
+/// </summary>
 public class SPMPSwitch : MonoBehaviour {
 
     [SerializeField]

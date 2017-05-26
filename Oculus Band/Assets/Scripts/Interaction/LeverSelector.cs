@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Animates and controls lever state. Attach this to a lever.
+/// </summary>
 public class LeverSelector : MonoBehaviour {
 
     public float opAngle;

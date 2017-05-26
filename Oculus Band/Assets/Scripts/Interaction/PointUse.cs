@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Attach this to an object which should enable PointUsable.
+/// </summary>
 public class PointUse : MonoBehaviour {
 
     public enum HandEnum {

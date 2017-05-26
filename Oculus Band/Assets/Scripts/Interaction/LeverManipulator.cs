@@ -4,6 +4,10 @@ using UnityEngine;
 using Leap.Unity;
 using Leap;
 
+/// <summary>
+/// Attach this to an object with a collider to be able to manipulate a lever
+/// using Oculus Touch or Leap Motion.
+/// </summary>
 public class LeverManipulator : MonoBehaviour {
 
     public enum HandEnum {

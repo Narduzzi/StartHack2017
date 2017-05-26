@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Attach this to an object which you want to be able to interact with.
+/// Fires OnPoint event on use.
+/// </summary>
 public class PointUsable : MonoBehaviour {
     [SerializeField]
     private bool usable = true;
