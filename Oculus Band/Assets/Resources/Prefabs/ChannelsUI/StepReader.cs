@@ -40,7 +40,13 @@ public class StepReader : MonoBehaviour {
 		}
 	}
 
-
+	/// <summary>
+	/// Generates the list of notes by channel.
+	/// </summary>
+	/// <returns>The list by channel.</returns>
+	/// <param name="notesArray">Notes array.</param>
+	/// <param name="listKeys">List keys.</param>
+	/// <param name="notes">Notes.</param>
 	public static List<List<Note>> GenerateListByChannel(List<List<Note>> notesArray, List<KeyCode> listKeys, List<Note> notes){
 		for (int i = 0; i < listKeys.Count; i++) {
 			notesArray.Add (new List<Note> ());
@@ -52,6 +58,12 @@ public class StepReader : MonoBehaviour {
 		return notesArray;
 	}
 
+	/// <summary>
+	/// Pops the and remove the next note in the list.
+	/// </summary>
+	/// <returns>The and remove.</returns>
+	/// <param name="list">List.</param>
+	/// <param name="time">Time.</param>
 	Note PopAndRemove(List<Note> list,float time){
 		if (list.Count != 0) {
 			int length = list.Count;

@@ -84,7 +84,10 @@ public class HandsUpDetector : MonoBehaviour {
 		}
 	}
 
-
+	/// <summary>
+	/// Checks if the hands are present.
+	/// </summary>
+	/// <returns>The hands.</returns>
 	public float CheckHands(){
 		float distanceR = 0;
 		float distanceL = 0;
@@ -103,11 +106,17 @@ public class HandsUpDetector : MonoBehaviour {
 		return distance;
 	}
 
+	/// <summary>
+	/// Finds the hands.
+	/// </summary>
 	private void FindHands(){
 		FindRightHand ();
 		FindLeftHand ();
 	}
 
+	/// <summary>
+	/// Looks for the right hand (Touch or LeapMotion).
+	/// </summary>
 	private void FindRightHand (){
 		GameObject HandR_trans = GameObject.Find("RigidRoundHand_R");
 		if(HandR_trans ==null){
@@ -121,6 +130,9 @@ public class HandsUpDetector : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Looks for the left hand (Touch or LeapMotion).
+	/// </summary>
 	private void FindLeftHand(){
 		GameObject HandL_trans = GameObject.Find("RigidRoundHand_L");
 

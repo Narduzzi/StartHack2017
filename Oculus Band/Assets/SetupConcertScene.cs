@@ -64,6 +64,9 @@ public class SetupConcertScene : MonoBehaviour {
 		Setup (instrument, headset, hands);
 	}
 
+	/// <summary>
+	/// Checks if the game is played on desktop.
+	/// </summary>
 	private void CheckIfDesktop(){
 		if (parameters.getHeadset () == "Desktop") {
 			Vector3 piano_pos = PianoPlayerTransform.position;
@@ -80,7 +83,12 @@ public class SetupConcertScene : MonoBehaviour {
 		}
 	}
 
-
+	/// <summary>
+	/// Setups the game according to specified instrument, headset and hands.
+	/// </summary>
+	/// <param name="instrument">Instrument.</param>
+	/// <param name="headset">Headset.</param>
+	/// <param name="hands">Hands.</param>
 	void Setup(string instrument, string headset, string hands){
         Debug.Log("Setting up instrument " + instrument);
 		audioManager.myInstrument = instrument;
@@ -107,7 +115,11 @@ public class SetupConcertScene : MonoBehaviour {
 
         //Parameters for headset and hands
     }
-		
+
+	/// <summary>
+	/// Setups the player location.
+	/// </summary>
+	/// <param name="transform">Transform.</param>
 	void SetupPlayerLocation(Transform transform){
 		CameraPlayer.transform.position = transform.position;
 		CameraPlayer.transform.rotation = transform.rotation;
