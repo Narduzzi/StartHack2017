@@ -129,11 +129,19 @@ namespace OBNet {
             string[] parts1 = fromAddress.Split(':');
             string[] parts = data.Split(':');
 
-            string addr = parts1[3];
-            string port = parts[2];
-            //string name = parts[2];
+            if (parts[0] == "NetworkManager") {
+                string addr = parts1[3];
+                string port = parts[2];
+                //string name = parts[2];
 
-            gamesFound.Add(new NetworkGame(addr, port, "game"));
+                gamesFound.Add(new NetworkGame(addr, port, "game"));
+            } else {
+                string addr = parts1[3];
+                string port = parts[1];
+                string name = parts[2];
+
+                gamesFound.Add(new NetworkGame(addr, port, name));
+            }
         }
 
 
